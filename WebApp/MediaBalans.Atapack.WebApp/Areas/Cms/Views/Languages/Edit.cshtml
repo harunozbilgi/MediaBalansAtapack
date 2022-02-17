@@ -1,0 +1,78 @@
+﻿@model Language
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="page-header-content pt-4">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto mt-4">
+                            <h1 class="page-header-title">
+                                <span class="page-header-icon"><i data-feather="edit-3"></i></span>
+                                Dil Güncelle
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card card-header-actions mb-4">
+                <div class="card-header">
+                    <a asp-action="Index" class="btn btn-sm btn-primary">Geri Git</a>
+                </div>
+                <div class="card-body">
+                    <form id="fromloading" class="mb-4" asp-action="Edit" asp-antiforgery="true">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreateTime" />
+                        <input type="hidden" asp-for="IsActive" />
+                         <div class="form-group">
+                            <label class="form-label" asp-for="FullName">Dil Adı</label>
+                            <input type="text" class="form-control" asp-for="FullName">
+                            <span class="text-danger" asp-validation-for="FullName"></span>
+                        </div>
+                         <div class="form-group">
+                            <label class="form-label" asp-for="ShortName">Kısa Adı</label>
+                            <input type="text" class="form-control" asp-for="ShortName">
+                            <span class="text-danger" asp-validation-for="ShortName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" asp-for="LangCode">Dil Kodu</label>
+                            <input type="text" class="form-control" asp-for="LangCode">
+                            <span class="text-danger" asp-validation-for="LangCode"></span>
+                        </div>
+                        <hr class="mt-2 mb-3">
+                        <button type="submit" class="btn w-100 btn-primary">Kaydet</button>
+                        <a asp-action="Index" class="btn w-100 btn-link text-muted mt-2">Vazgeç</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Validation{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section Scripts{
+    <script>
+    $(document).on("submit", "#fromloading", function () {
+        $(this).find('button[type="submit"]')
+        $(this).find('button[type="submit"]').attr("disabled", "true");
+        $(this).find('button[type="submit"]').html('');
+        $(this).find('button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Kaydet...')
+        setTimeout(() => {
+            $(this).find('.spinner-border').remove();
+            $(this).find('button[type="submit"]').append('Kaydet');
+            $(this).find('button[type="submit"]').attr("disabled", "false");
+        }, 2000);
+    });
+    </script>
+
+}
