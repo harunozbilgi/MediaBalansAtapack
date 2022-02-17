@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Cms\Data\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
 </Project>

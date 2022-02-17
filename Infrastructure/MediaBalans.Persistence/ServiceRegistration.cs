@@ -11,7 +11,7 @@ namespace MediaBalans.Persistence
 {
     public static class ServiceRegistration
     {
-        public static void AddPersistenceRegistration(this IServiceCollection service, IConfiguration configuration = null)
+        public static void AddPersistenceRegistration(this IServiceCollection service, IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("SqlConnection");
             service.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
@@ -26,8 +26,9 @@ namespace MediaBalans.Persistence
                     warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning);
                 }));
 
-            service.AddTransient<ILanguageRespository, LanguageRespository>();
-            service.AddTransient<ICategoryRespository, CategoryRespository>();
+            service.AddTransient<ILanguageRepository, LanguageRepository>();
+            service.AddTransient<ICategoryRepository, CategoryRepository>();
+            service.AddTransient<IDocumentRepository, DocumentRepository>();
 
         }
         public static  void Seed(IApplicationBuilder app)

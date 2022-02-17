@@ -11,7 +11,6 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
         private readonly ICategoryService _categoryService;
 
         public CategoriesController(ICategoryService categoryService) => _categoryService = categoryService;
-
         public async Task<IActionResult> Index()
         {
             var result = await _categoryService.GetCategoriesAsync();
@@ -27,6 +26,7 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
         {
             try
             {
+              
                 var slugurl = UrlSeoHelper.UrlSeo(categoryViewModel.CategoryLanguages[0].Title);
                 var categoryAdd = await _categoryService.AddCategoryAsync(new Domain.Entities.Category
                 {

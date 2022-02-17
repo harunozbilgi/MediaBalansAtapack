@@ -5,10 +5,10 @@ using MediaBalans.Persistence.Context;
 
 namespace MediaBalans.Persistence.Repositories
 {
-    public class CategoryRespository : GenericRepositoryAsync<Category>, ICategoryRespository
+    public class CategoryRepository : GenericRepositoryAsync<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _context;
-        public CategoryRespository(ApplicationDbContext context) : base(context)
+        public CategoryRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

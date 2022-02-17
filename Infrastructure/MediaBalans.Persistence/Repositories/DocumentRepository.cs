@@ -4,11 +4,10 @@ using MediaBalans.Persistence.Context;
 
 namespace MediaBalans.Persistence.Repositories
 {
-    public class LanguageRespository : GenericRepositoryAsync<Language>, ILanguageRespository
+    public class DocumentRepository : GenericRepositoryAsync<Document>, IDocumentRepository
     {
-        public LanguageRespository(ApplicationDbContext context) : base(context)
+        public DocumentRepository(ApplicationDbContext context) : base(context)
         {
-
         }
     }
 }

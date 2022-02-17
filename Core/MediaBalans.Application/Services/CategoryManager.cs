@@ -10,9 +10,9 @@ namespace MediaBalans.Application.Services
 {
     public class CategoryManager : ICategoryService
     {
-        private readonly ICategoryRespository _categoryRespository;
+        private readonly ICategoryRepository _categoryRespository;
 
-        public CategoryManager(ICategoryRespository categoryRespository) => _categoryRespository = categoryRespository;
+        public CategoryManager(ICategoryRepository categoryRespository) => _categoryRespository = categoryRespository;
 
         public async Task<Response<Category>> AddCategoryAsync(Category category)
         {

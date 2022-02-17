@@ -9,9 +9,9 @@ namespace MediaBalans.Application.Services
 {
     public class LanguageManager : ILanguageService
     {
-        private readonly ILanguageRespository _languageRepositroy;
+        private readonly ILanguageRepository _languageRepositroy;
 
-        public LanguageManager(ILanguageRespository languageRepositroy) => _languageRepositroy = languageRepositroy;
+        public LanguageManager(ILanguageRepository languageRepositroy) => _languageRepositroy = languageRepositroy;
 
         public async Task<Response<NoContent>> AddLanguageAsync(Language language)
         {

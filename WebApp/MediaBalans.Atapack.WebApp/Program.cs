@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceRegistration(builder.Configuration);
-builder.Services.AddApplicationRegistration();
+builder.Services.AddApplicationRegistration(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

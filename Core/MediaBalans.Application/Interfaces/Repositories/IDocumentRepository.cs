@@ -2,7 +2,7 @@
 
 namespace MediaBalans.Application.Interfaces.Repositories
 {
-    public interface ILanguageRespository : IGenericRepositoryAsync<Language>
+    public interface IDocumentRepository : IGenericRepositoryAsync<Document>
     {
 
     }
