@@ -35,7 +35,7 @@
                         @*<div class="dropdown-user-details">
                             <div class="dropdown-user-details-name">@User.Identity.Name</div>
                             <div class="dropdown-user-details-email">@User.FindFirst(ClaimTypes.Email).Value</div>
-                        </div>*@
+                            </div>*@
                     </div>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" asp-area="Cms" asp-controller="Account" asp-action="Logout">
@@ -66,18 +66,10 @@
                             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                                 <a class="nav-link" asp-area="Cms" asp-controller="Languages" asp-action="Index">Diller</a>
                                 <a class="nav-link" asp-area="Cms" asp-controller="Sliders" asp-action="Index">Slayder</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="News" asp-action="Index">Haberler</a>
                                 <a class="nav-link" asp-area="Cms" asp-controller="Categories" asp-action="Index">Ürün Kategori</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="WhyWes" asp-action="Index">Niye Biz</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Faqs" asp-action="Index">F.a.q</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Dealers" asp-action="Index">Şubeler</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Partners" asp-action="Index">Partnerler</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Finances" asp-action="Index">Maliyye</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Guidances" asp-action="Index">Rehberlik</a>
+                                <a class="nav-link" asp-area="Cms" asp-controller="Products" asp-action="Index">Ürünler</a>
+                                <a class="nav-link" asp-area="Cms" asp-controller="News" asp-action="Index">Haberler</a>
                                 <a class="nav-link" asp-area="Cms" asp-controller="Pages" asp-action="Index">Sayfalar</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Pharmacy" asp-action="Index">Aptekler</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="Careers" asp-action="Index">Karyera</a>
-                                <a class="nav-link" asp-area="Cms" asp-controller="FolderApps" asp-action="Index">Sabit Dosyalar</a>
                             </nav>
                         </div>
                         <div class="sidenav-menu-heading">Ayarlar</div>
@@ -94,7 +86,7 @@
                 <div class="sidenav-footer">
                     <div class="sidenav-footer-content">
                         <div class="sidenav-footer-subtitle">Giriş yaptı:</div>
-                      @*  <div class="sidenav-footer-title">@User.Identity.Name</div>*@
+                        @*  <div class="sidenav-footer-title">@User.Identity.Name</div>*@
                     </div>
                 </div>
             </nav>

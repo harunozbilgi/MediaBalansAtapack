@@ -18,6 +18,10 @@ namespace MediaBalans.Application
             services.AddTransient<ILanguageService, LanguageManager>();
             services.AddTransient<ICategoryService, CategoryManager>();
             services.AddTransient<IDocumentService, DocumentManager>(); 
+            services.AddTransient<ISliderService, SliderManager>();
+            services.AddTransient<IAppSeoService, AppSeoManager>();
+            services.AddTransient<IProductService, ProductManager>();  
+            services.AddTransient<IPortfolioService, PortfolioManager>();  
 
             services.AddFluentValidation(options =>
             {

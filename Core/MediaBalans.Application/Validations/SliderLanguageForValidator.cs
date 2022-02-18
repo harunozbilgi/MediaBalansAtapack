@@ -4,12 +4,12 @@ using MediaBalans.Domain.Entities.Languages;
 
 namespace MediaBalans.Application.Validations
 {
-    public class CategoryLanguageForValidator : AbstractValidator<CategoryLanguage>
+    public class SliderLanguageForValidator : AbstractValidator<SliderLanguage>
     {
-        public CategoryLanguageForValidator()
+        public SliderLanguageForValidator()
         {
             RuleFor(x => x.Title).NotEmpty().WithMessage("Required field please fill.");
-
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Required field please fill.");
         }
     }
 }

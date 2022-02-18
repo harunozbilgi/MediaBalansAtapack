@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Areas\Cms\Data\" />
     <Folder Include="wwwroot\files\" />
+    <Folder Include="wwwroot\files\prodcut\" />
   </ItemGroup>
 
 </Project>

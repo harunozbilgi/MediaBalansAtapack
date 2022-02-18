@@ -15,13 +15,11 @@ namespace MediaBalans.Application.Services
     {
         private readonly IDocumentRepository _documentRepository;
         private readonly DocumentSetting  _documentSetting;
-        private readonly string _getGuid;
 
         public DocumentManager(IDocumentRepository documentRepository, IOptions<DocumentSetting> documentSetting)
         {
             _documentRepository = documentRepository;
             _documentSetting = documentSetting.Value;
-            _getGuid = GetGuId();
         }
 
         public async Task<Response<NoContent>> DeleteFolderAsync(string DocumentUnique)
@@ -60,6 +58,7 @@ namespace MediaBalans.Application.Services
         {
             try
             {
+                string guidId = GetGuId();
                 if (upload.File is not null)
                 {
                     if (!IsFolderValid(upload.File))
@@ -71,12 +70,12 @@ namespace MediaBalans.Application.Services
                     {
                         Directory.CreateDirectory(path);
                     }
-                    string filename = string.Concat(_getGuid, Path.GetExtension(upload.File.FileName));
+                    string filename = string.Concat(guidId, Path.GetExtension(upload.File.FileName));
                     using var fileStream = new FileStream(Path.Combine(path, filename), FileMode.Create);
                     await upload.File.CopyToAsync(fileStream, cancellationToken);
                     await _documentRepository.AddAsync(new Document()
                     {
-                        DocumentUnique = _getGuid,
+                        DocumentUnique = guidId,
                         DocumentName = filename,
                         DocumentFolderName = upload.FolderName,
                         DocumentType = Path.GetExtension(upload.File.FileName),
@@ -85,7 +84,7 @@ namespace MediaBalans.Application.Services
                         Image_Url = upload.ImageUrl,
                         Video_Url = upload.VideoUrl,
                     });
-                    return Response<string>.Success(_getGuid, 202);
+                    return Response<string>.Success(guidId, "Ekleme işlemi başarılı", 202);
                 }
                 return Response<string>.Error("Lütfen bu alanı boş geçmeyiniz.", 404);
             }

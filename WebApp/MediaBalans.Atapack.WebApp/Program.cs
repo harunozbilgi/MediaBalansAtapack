@@ -1,5 +1,6 @@
 using MediaBalans.Application;
 using MediaBalans.Persistence;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceRegistration(builder.Configuration);
 builder.Services.AddApplicationRegistration(builder.Configuration);
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
+builder.Services.AddWebEncoders(o =>
+{
+    o.TextEncoderSettings = new System.Text.Encodings.Web.TextEncoderSettings(UnicodeRanges.All);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -15,7 +25,11 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-MediaBalans.Persistence.ServiceRegistration.Seed(app);
+else
+{
+    MediaBalans.Persistence.ServiceRegistration.Seed(app);
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
