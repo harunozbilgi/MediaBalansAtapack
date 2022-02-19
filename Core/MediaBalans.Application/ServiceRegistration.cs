@@ -22,6 +22,9 @@ namespace MediaBalans.Application
             services.AddTransient<IAppSeoService, AppSeoManager>();
             services.AddTransient<IProductService, ProductManager>();  
             services.AddTransient<IPortfolioService, PortfolioManager>();  
+            services.AddTransient<INewsService, NewsManager>();
+            services.AddTransient<IServicesService, ServiceManager>();
+            services.AddTransient<IServicePropertyService, ServicePropertyManager>();
 
             services.AddFluentValidation(options =>
             {

@@ -1,4 +1,4 @@
-﻿@model ProductViewModel
+﻿@model ServiceViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -9,7 +9,7 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <span class="page-header-icon"><i data-feather="edit-3"></i></span>
-                        Ürün Güncelle
+                        Hizmet Güncelle
                     </h1>
                 </div>
             </div>
@@ -48,18 +48,23 @@
                             }
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            @foreach (var item in Model.ProductLanguages)
+                            @foreach (var item in Model.ServiceLanguages)
                             {
                                 <div class="tab-pane fade @(langCountPanel == 0 ? "show active": "")" id="pills-lang-@item.Lang_Code" role="tabpanel" aria-labelledby="pills-lang-tab-@item.Lang_Code">
                                     <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="ProductLanguages[langCountPanel].Title">Başlık - @item.Lang_Code</label>
-                                        <input type="text" class="form-control" asp-for="ProductLanguages[langCountPanel].Title">
-                                        <span class="text-danger" asp-validation-for="ProductLanguages[langCountPanel].Title"></span>
+                                        <label class="form-label" asp-for="ServiceLanguages[langCountPanel].Title">Başlık - @item.Lang_Code</label>
+                                        <input type="text" class="form-control" asp-for="ServiceLanguages[langCountPanel].Title">
+                                        <span class="text-danger" asp-validation-for="ServiceLanguages[langCountPanel].Title"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" asp-for="ServiceLanguages[langCountPanel].Subject">Özet açıklam - @item.Lang_Code</label>
+                                        <textarea class="form-control" asp-for="ServiceLanguages[langCountPanel].Subject" rows="5" cols="5"></textarea>
+                                        <span class="text-danger" asp-validation-for="ServiceLanguages[langCountPanel].Subject"></span>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="ProductLanguages[langCountPanel].Description">Açıklama - @item.Lang_Code</label>
-                                        <textarea class="form-control editor" asp-for="ProductLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
-                                        <span class="text-danger" asp-validation-for="ProductLanguages[langCountPanel].Description"></span>
+                                        <label class="form-label" asp-for="ServiceLanguages[langCountPanel].Description">Açıklama - @item.Lang_Code</label>
+                                        <textarea class="form-control editor" asp-for="ServiceLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
+                                        <span class="text-danger" asp-validation-for="ServiceLanguages[langCountPanel].Description"></span>
                                     </div>
                                     <div class="border border-dark rounded my-3 p-3">
                                         <div class="d-flex justify-content-between">
@@ -88,9 +93,9 @@
                                         }
 
                                     </div>
-                                    <input type="hidden" asp-for="ProductLanguages[langCountPanel].Id" value="@item.Id" />
-                                    <input type="hidden" asp-for="ProductLanguages[langCountPanel].ProductId" value="@item.ProductId" />
-                                    <input type="hidden" asp-for="ProductLanguages[langCountPanel].Lang_Code" value="@item.Lang_Code" />
+                                    <input type="hidden" asp-for="ServiceLanguages[langCountPanel].Id" value="@item.Id" />
+                                    <input type="hidden" asp-for="ServiceLanguages[langCountPanel].ServiceId" value="@item.ServiceId" />
+                                    <input type="hidden" asp-for="ServiceLanguages[langCountPanel].Lang_Code" value="@item.Lang_Code" />
                                 </div>
                                 langCountPanel++;
                             }
@@ -103,43 +108,53 @@
                     <div class="card-header">Sabit Alanlar</div>
                     <div class="card-body">
                         <div class="form-group mb-3">
-                            <label asp-for="Product.CategoryId" class="form-label">Ürün kategori</label>
-                            <select class="form-select" asp-for="Product.CategoryId">
-                                <option value="">Seçiniz</option>
-                                @foreach (var item in Model.Categories)
-                                {
-                                    <option value="@item.Id">@item.CategoryLanguages.FirstOrDefault(x=>x.Lang_Code=="az").Title</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label asp-for="Files" class="form-label">Ürün Görsel</label>
-                            @if (Model.Product != null)
+                            <label asp-for="Icon" class="form-label">İcon Görsel</label>
+                            @if (Model.Service != null)
                             {
-                                if (Model.Product.ProductFiles != null)
+                                if (!string.IsNullOrEmpty(Model.Service.Icon))
                                 {
-                                    @foreach (var item in Model.Product.ProductFiles)
-                                    {
-                                        <div class="my-2">
-                                            <img class="img-account-profile rounded-1 border border-dark" src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })">
-                                        </div>
-                                    }
+                                    <div class="my-2">
+                                        <img class="img-account-profile rounded-1 border border-dark" src="@await Component.InvokeAsync("Image", new { FileCode = Model.Service.Icon  })">
+                                    </div>
                                 }
                             }
-                            <input class="form-control" type="file" multiple asp-for="Files">
+                            <input class="form-control" type="file" asp-for="Icon">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="File" class="form-label">Detay Görsel</label>
+                            @if (Model.Service != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.Service.Image_Url))
+                                {
+                                    <div class="my-2">
+                                        <img class="img-account-profile rounded-1 border border-dark" src="@await Component.InvokeAsync("Image", new { FileCode = Model.Service.Image_Url  })">
+                                    </div>
+                                }
+                            }
+                            <input class="form-control" type="file" asp-for="File">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label mb-1" for="switchOne">Çoklu sayfa mı?</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switchPage" asp-for="Service.IsPage">
+                                <label class="form-check-label" for="switchPage"></label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Service.IsPage"></span>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label mb-1" for="switchOne">Durumu</label>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="switchOne" asp-for="Product.IsActive">
+                                <input class="form-check-input" type="checkbox" id="switchOne" asp-for="Service.IsActive">
                                 <label class="form-check-label" for="switchOne"></label>
                             </div>
-                            <span class="text-danger" asp-validation-for="Product.IsActive"></span>
+                            <span class="text-danger" asp-validation-for="Service.IsActive"></span>
                         </div>
-                        <input type="hidden" asp-for="Product.Id" />
-                        <input type="hidden" asp-for="Product.AppSeoCode" />
-                        <input type="hidden" asp-for="Product.OrderBy" />
-                        <input type="hidden" asp-for="Product.CreateTime" />
+                        <input type="hidden" asp-for="Service.Id" />
+                        <input type="hidden" asp-for="Service.AppSeoCode" />
+                        <input type="hidden" asp-for="Service.Image_Url" />
+                        <input type="hidden" asp-for="Service.Icon" />
+                        <input type="hidden" asp-for="Service.OrderBy" />
+                        <input type="hidden" asp-for="Service.CreateTime" />
                         <div class="bn">
                             <button type="submit" class="btn  btn-primary">Kaydet</button>
                             <a asp-action="Index" class="btn  btn-dark">Vazgeç</a>

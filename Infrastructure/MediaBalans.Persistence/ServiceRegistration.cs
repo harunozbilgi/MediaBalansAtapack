@@ -33,6 +33,9 @@ namespace MediaBalans.Persistence
             service.AddTransient<IAppSeoRepository, AppSeoRepository>();
             service.AddTransient<IProductRepository, ProductRepository>();  
             service.AddTransient<IPortfolioRepository, PortfolioRepository>();
+            service.AddTransient<INewsRepository, NewsRepository>();   
+            service.AddTransient<IServiceRepository, ServiceRepository>();
+            service.AddTransient<IServicePropertyRepository, ServicePropertyRepository>();
 
         }
         public static  void Seed(IApplicationBuilder app)

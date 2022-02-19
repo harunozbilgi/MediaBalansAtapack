@@ -1,7 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Edit";
+﻿@model NewsViewModel
+@{
+    ViewData["Title"] = "Create";
 }
-@model SliderViewModel
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
     <div class="container-xl px-4">
         <div class="page-header-content pt-4">
@@ -9,7 +9,7 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <span class="page-header-icon"><i data-feather="edit-3"></i></span>
-                        Slayder Güncelle
+                        Haber Ekle
                     </h1>
                 </div>
             </div>
@@ -17,7 +17,7 @@
     </div>
 </header>
 <div class="container-xl px-4 mt-n10">
-    <form id="fromloading" enctype="multipart/form-data" asp-action="Edit" asp-antiforgery="true">
+    <form id="fromloading" enctype="multipart/form-data" asp-action="Create" asp-antiforgery="true">
         <div class="row">
             <div class="col-xl-8">
                 <div class="card card-header-actions mb-4">
@@ -48,22 +48,41 @@
                             }
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            @foreach (var item in Model.SliderLanguages)
+                            @foreach (var item in (await languageService.GetLanguagesAsync()).Data.ToList())
                             {
-                                <div class="tab-pane fade @(langCountPanel == 0 ? "show active": "")" id="pills-lang-@item.Lang_Code" role="tabpanel" aria-labelledby="pills-lang-tab-@item.Lang_Code">
+                                <div class="tab-pane fade @(langCountPanel == 0 ? "show active": "")" id="pills-lang-@item.LangCode" role="tabpanel" aria-labelledby="pills-lang-tab-@item.LangCode">
                                     <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="SliderLanguages[langCountPanel].Title">Başlık - @item.Lang_Code</label>
-                                        <input type="text" class="form-control" asp-for="SliderLanguages[langCountPanel].Title">
-                                        <span class="text-danger" asp-validation-for="SliderLanguages[langCountPanel].Title"></span>
+                                        <label class="form-label" asp-for="NewsLanguages[langCountPanel].Title">Başlık - @item.LangCode</label>
+                                        <input type="text" class="form-control" asp-for="NewsLanguages[langCountPanel].Title">
+                                        <span class="text-danger" asp-validation-for="NewsLanguages[langCountPanel].Title"></span>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="SliderLanguages[langCountPanel].Description">Açıklama - @item.Lang_Code</label>
-                                        <textarea class="form-control" asp-for="SliderLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
-                                        <span class="text-danger" asp-validation-for="SliderLanguages[langCountPanel].Description"></span>
+                                    <div class="form-group">
+                                        <label class="form-label" asp-for="NewsLanguages[langCountPanel].Description">Açıklama - @item.LangCode</label>
+                                        <textarea class="form-control" asp-for="NewsLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
+                                        <span class="text-danger" asp-validation-for="NewsLanguages[langCountPanel].Description"></span>
                                     </div>
-                                    <input type="hidden" asp-for="SliderLanguages[langCountPanel].Id" value="@item.Id" />
-                                    <input type="hidden" asp-for="SliderLanguages[langCountPanel].SliderId" value="@item.SliderId" />
-                                    <input type="hidden" asp-for="SliderLanguages[langCountPanel].Lang_Code" value="@item.Lang_Code" />
+                                    <div class="border border-dark rounded my-3 p-3">
+                                        <div class="d-flex justify-content-between">
+                                            <span>Seo Ayarlari</span>
+                                        </div>
+                                        <div class="form-group my-3">
+                                            <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Title">Seo Başlık - @item.LangCode</label>
+                                            <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Title">
+                                            <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Title"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Keyword">Seo Anahtar Kelime - @item.LangCode</label>
+                                            <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Keyword">
+                                            <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Keyword"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Description">Seo Açıklama - @item.LangCode</label>
+                                            <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Description">
+                                            <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Description"></span>
+                                        </div>
+                                        <input type="hidden" asp-for="AppSeoLanguages[langCountPanel].Lang_Code" value="@item.LangCode" />
+                                    </div>
+                                    <input type="hidden" asp-for="NewsLanguages[langCountPanel].Lang_Code" value="@item.LangCode" />
                                 </div>
                                 langCountPanel++;
                             }
@@ -76,33 +95,21 @@
                     <div class="card-header">Sabit Alanlar</div>
                     <div class="card-body">
                         <div class="form-group mb-3">
-                            <label for="file" class="form-label">Görsel</label>
-                            @if (Model.Slider != null)
-                            {
-                                if (Model.Slider.FileCode != null)
-                                {
-                                    <div class="my-2">
-                                        <img class="img-account-profile rounded-1 border border-dark" src="@await Component.InvokeAsync("Image", new { FileCode = Model.Slider.FileCode  })">
-                                    </div>
-                                }
-                            }
-                            <input class="form-control" type="file" name="file" id="file">
+                            <label asp-for="File" class="form-label">Haber Görsel</label>
+                            <input class="form-control" type="file" asp-for="File">
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="Slider.Url" class="form-label">Url Adresi</label>
-                            <input class="form-control" type="text" asp-for="Slider.Url" />
+                            <label asp-for="News.CreateTime" class="form-label">Haber tarih</label>
+                            <input class="form-control" type="date" asp-for="News.CreateTime">
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label mb-1" for="switchOne">Durumu</label>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="switchOne"  asp-for="Slider.IsActive">
+                                <input class="form-check-input" type="checkbox" id="switchOne" checked asp-for="News.IsActive">
                                 <label class="form-check-label" for="switchOne"></label>
                             </div>
-                            <span class="text-danger" asp-validation-for="Slider.IsActive"></span>
+                            <span class="text-danger" asp-validation-for="News.IsActive"></span>
                         </div>
-                        <input type="hidden" asp-for=Slider.Id />
-                        <input type="hidden" asp-for=Slider.FileCode />
-                        <input type="hidden" asp-for="Slider.CreateTime" />
                         <div class="bn">
                             <button type="submit" class="btn  btn-primary">Kaydet</button>
                             <a asp-action="Index" class="btn  btn-dark">Vazgeç</a>
@@ -114,14 +121,11 @@
     </form>
 </div>
 
-
 @section Validation{
     @{
     await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
-
 }
-
 @section Scripts{
 <script>
     $(document).on("submit", "#fromloading", function () {
@@ -136,4 +140,7 @@
         }, 2000);
     });
 </script>
+
 }
+
+

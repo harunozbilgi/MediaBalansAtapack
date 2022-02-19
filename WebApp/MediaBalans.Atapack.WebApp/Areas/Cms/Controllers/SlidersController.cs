@@ -44,7 +44,7 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                     }
                     resultFileCoe += fileCode.Data;
                 }
-                var sliderAdd = await _sliderService.AddSliderAsync(new Slider() { FileCode = resultFileCoe, Url = sliderView.Slider.Url });
+                var sliderAdd = await _sliderService.AddSliderAsync(new Slider() { FileCode = resultFileCoe, Url = sliderView.Slider.Url, IsActive = sliderView.Slider.IsActive });
                 if (sliderAdd.IsSuccessful)
                 {
                     foreach (var item in sliderView.SliderLanguages)
@@ -93,17 +93,15 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                     if (sliderView.Slider.FileCode != null || sliderView.Slider.FileCode != string.Empty)
                     {
                         var deleteFile = await _documentService.DeleteFolderAsync(sliderView.Slider.FileCode);
-                        var fileCode = await _documentService.UploadAsync(new Application.Dtos.UploadInputDto { File = file, FolderName = "files/slayder/" });
-
-                        if (!fileCode.IsSuccessful)
-                        {
-                            TempData["Warning"] = fileCode.Messages;
-                            return View(sliderView);
-                        }
-                        sliderView.Slider.FileCode = fileCode.Data;
-
-
                     }
+                    var fileCode = await _documentService.UploadAsync(new Application.Dtos.UploadInputDto { File = file, FolderName = "files/slayder/" });
+
+                    if (!fileCode.IsSuccessful)
+                    {
+                        TempData["Warning"] = fileCode.Messages;
+                        return View(sliderView);
+                    }
+                    sliderView.Slider.FileCode = fileCode.Data;
                 }
                 var sliderUpdate = await _sliderService.UpdateSliderAsync(sliderView.Slider);
                 if (sliderUpdate.IsSuccessful)

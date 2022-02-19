@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Create";
 }
-@model SliderViewModel
+@model PortfolioViewModel
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
     <div class="container-xl px-4">
         <div class="page-header-content pt-4">
@@ -9,7 +9,7 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <span class="page-header-icon"><i data-feather="edit-3"></i></span>
-                        Slayder Ekle
+                        Portföy Ekle
                     </h1>
                 </div>
             </div>
@@ -52,16 +52,16 @@
                             {
                                 <div class="tab-pane fade @(langCountPanel == 0 ? "show active": "")" id="pills-lang-@item.LangCode" role="tabpanel" aria-labelledby="pills-lang-tab-@item.LangCode">
                                     <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="SliderLanguages[langCountPanel].Title">Başlık - @item.LangCode</label>
-                                        <input type="text" class="form-control" asp-for="SliderLanguages[langCountPanel].Title">
-                                        <span class="text-danger" asp-validation-for="SliderLanguages[langCountPanel].Title"></span>
+                                        <label class="form-label" asp-for="PortfolioLanguages[langCountPanel].Title">Başlık - @item.LangCode</label>
+                                        <input type="text" class="form-control" asp-for="PortfolioLanguages[langCountPanel].Title">
+                                        <span class="text-danger" asp-validation-for="PortfolioLanguages[langCountPanel].Title"></span>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="form-label" asp-for="SliderLanguages[langCountPanel].Description">Açıklama - @item.LangCode</label>
-                                        <textarea class="form-control" asp-for="SliderLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
-                                        <span class="text-danger" asp-validation-for="SliderLanguages[langCountPanel].Description"></span>
+                                        <label class="form-label" asp-for="PortfolioLanguages[langCountPanel].Description">Açıklama - @item.LangCode</label>
+                                        <textarea class="form-control" asp-for="PortfolioLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
+                                        <span class="text-danger" asp-validation-for="PortfolioLanguages[langCountPanel].Description"></span>
                                     </div>
-                                    <input type="hidden" asp-for="SliderLanguages[langCountPanel].Lang_Code" value="@item.LangCode" />
+                                    <input type="hidden" asp-for="PortfolioLanguages[langCountPanel].Lang_Code" value="@item.LangCode" />
                                 </div>
                                 langCountPanel++;
                             }
@@ -73,13 +73,17 @@
                 <div class="card mb-4">
                     <div class="card-header">Sabit Alanlar</div>
                     <div class="card-body">
-                        <div class="form-group mb-3">
-                            <label for="file" class="form-label">Görsel</label>
-                            <input class="form-control" type="file" name="file" id="file">
+                         <div class="form-group mb-3">
+                            <label asp-for="Files" class="form-label">Portföy Görsel</label>
+                            <input class="form-control" type="file" multiple asp-for="Files">
                         </div>
                         <div class="form-group mb-3">
-                            <label asp-for="Slider.Url" class="form-label">Url Adresi</label>
-                            <input class="form-control" type="text" asp-for="Slider.Url" />
+                            <label class="form-label mb-1" for="switchOne">Durumu</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switchOne" checked asp-for="Portfolio.IsActive">
+                                <label class="form-check-label" for="switchOne"></label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Portfolio.IsActive"></span>
                         </div>
                         <div class="bn">
                             <button type="submit" class="btn  btn-primary">Kaydet</button>

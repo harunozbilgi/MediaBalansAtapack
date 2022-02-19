@@ -30,7 +30,8 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                 var slugurl = UrlSeoHelper.UrlSeo(categoryViewModel.CategoryLanguages[0].Title);
                 var categoryAdd = await _categoryService.AddCategoryAsync(new Domain.Entities.Category
                 {
-                    SlugUrl = slugurl
+                    SlugUrl = slugurl,
+                    IsActive = categoryViewModel.Category.IsActive
                 });
                 if (categoryAdd.IsSuccessful)
                 {

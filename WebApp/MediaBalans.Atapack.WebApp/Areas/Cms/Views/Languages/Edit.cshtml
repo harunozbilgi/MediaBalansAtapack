@@ -33,20 +33,28 @@
                         <input type="hidden" asp-for="Id" />
                         <input type="hidden" asp-for="CreateTime" />
                         <input type="hidden" asp-for="IsActive" />
-                         <div class="form-group">
+                         <div class="form-group mb-3">
                             <label class="form-label" asp-for="FullName">Dil Adı</label>
                             <input type="text" class="form-control" asp-for="FullName">
                             <span class="text-danger" asp-validation-for="FullName"></span>
                         </div>
-                         <div class="form-group">
+                         <div class="form-group mb-3">
                             <label class="form-label" asp-for="ShortName">Kısa Adı</label>
                             <input type="text" class="form-control" asp-for="ShortName">
                             <span class="text-danger" asp-validation-for="ShortName"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label class="form-label" asp-for="LangCode">Dil Kodu</label>
                             <input type="text" class="form-control" asp-for="LangCode">
                             <span class="text-danger" asp-validation-for="LangCode"></span>
+                        </div>
+                         <div class="form-group mb-3">
+                            <label class="form-label mb-1" for="switchOne">Durumu</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switchOne"  asp-for="IsActive">
+                                <label class="form-check-label" for="switchOne"></label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="IsActive"></span>
                         </div>
                         <hr class="mt-2 mb-3">
                         <button type="submit" class="btn w-100 btn-primary">Kaydet</button>

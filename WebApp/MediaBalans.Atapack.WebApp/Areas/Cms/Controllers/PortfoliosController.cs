@@ -57,7 +57,7 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                 }
                 var addPortfolio = await _portfolioService.AddPortfolioAsync(new Domain.Entities.Portfolio
                 {
-                    IsActive = true,
+                    IsActive = model.Portfolio.IsActive,
                 });
                 if (addPortfolio.IsSuccessful)
                 {

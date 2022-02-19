@@ -62,11 +62,6 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                         fileArray.Add(fileCode.Data);
                     }
                 }
-                else
-                {
-                    TempData["Error"] = "Lütfen bu alanı boş geçmeyiniz.";
-                    return View(model);
-                }
                 var slugurl = UrlSeoHelper.UrlSeo(model.ProductLanguages[0].Title);
                 var seoCode = await _appSeoService.PageSeoAddAsync(model.Product.AppSeoCode, model.AppSeoLanguages);
 
@@ -75,6 +70,7 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
                     CategoryId = model.Product.CategoryId,
                     AppSeoCode = seoCode.Data,
                     SlugUrl = slugurl,
+                    IsActive = model.Product.IsActive,
                 });
                 if (addProduct.IsSuccessful)
                 {
