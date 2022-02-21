@@ -10,6 +10,7 @@ namespace MediaBalans.Persistence.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.AppSeoCode).HasMaxLength(15);
             builder.Property(x => x.FileCode).HasMaxLength(15);
             builder.Property(x => x.SlugUrl).HasMaxLength(250);
         }

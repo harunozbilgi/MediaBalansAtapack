@@ -104,7 +104,7 @@
                         <input type="hidden" asp-for="ServiceProperty.CreateTime" />
                         <div class="bn">
                             <button type="submit" class="btn  btn-primary">Kaydet</button>
-                            <a asp-action="Index" class="btn  btn-dark">Vazgeç</a>
+                            <a asp-action="Properties" asp-route-id="@Model.ServiceProperty.ServiceId" class="btn  btn-dark">Vazgeç</a>
                         </div>
                     </div>
                 </div>

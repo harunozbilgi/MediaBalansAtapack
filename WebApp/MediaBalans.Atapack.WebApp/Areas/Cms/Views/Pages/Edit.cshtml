@@ -1,0 +1,182 @@
+﻿@model PageViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <span class="page-header-icon"><i data-feather="edit-3"></i></span>
+                        Sayfa Güncelle
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <form id="fromloading" enctype="multipart/form-data" asp-action="Edit" asp-antiforgery="true">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">
+                        Tercüme edilecek alanlar
+                    </div>
+                    <div class="card-body">
+                        @{
+                            int langCount = 0;
+                            int langCountPanel = 0;
+                        }
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            @foreach (var item in (await languageService.GetLanguagesAsync()).Data.ToList())
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link @(langCount == 0 ? "active": "") "
+                                        id="pills-lang-tab-@item.LangCode"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-lang-@item.LangCode"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-lang-@item.LangCode"
+                                        aria-selected="@(langCount == 0 ? "true": "false")">
+                                        @item.FullName
+                                    </button>
+                                </li>
+                                langCount++;
+                            }
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            @foreach (var item in Model.PageLanguages)
+                            {
+                                <div class="tab-pane fade @(langCountPanel == 0 ? "show active": "")" id="pills-lang-@item.Lang_Code" role="tabpanel" aria-labelledby="pills-lang-tab-@item.Lang_Code">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" asp-for="PageLanguages[langCountPanel].Title">Başlık - @item.Lang_Code</label>
+                                        <input type="text" class="form-control" asp-for="PageLanguages[langCountPanel].Title">
+                                        <span class="text-danger" asp-validation-for="PageLanguages[langCountPanel].Title"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" asp-for="PageLanguages[langCountPanel].Description">Açıklama - @item.Lang_Code</label>
+                                        <textarea class="form-control editor" asp-for="PageLanguages[langCountPanel].Description" rows="5" cols="5"></textarea>
+                                        <span class="text-danger" asp-validation-for="PageLanguages[langCountPanel].Description"></span>
+                                    </div>
+                                    <div class="border border-dark rounded my-3 p-3">
+                                        <div class="d-flex justify-content-between">
+                                            <span>Seo Ayarlari</span>
+                                        </div>
+                                        @foreach (var seo in Model.AppSeoLanguages.Where(x => x.Lang_Code == item.Lang_Code))
+                                        {
+                                            <div class="form-group my-3">
+                                                <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Title">Seo Başlık - @item.Lang_Code</label>
+                                                <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Title">
+                                                <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Title"></span>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Keyword">Seo Anahtar Kelime - @item.Lang_Code</label>
+                                                <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Keyword">
+                                                <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Keyword"></span>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" asp-for="AppSeoLanguages[langCountPanel].Description">Seo Açıklama - @item.Lang_Code</label>
+                                                <input type="text" class="form-control" asp-for="AppSeoLanguages[langCountPanel].Description">
+                                                <span class="text-danger" asp-validation-for="AppSeoLanguages[langCountPanel].Description"></span>
+                                            </div>
+                                            <input type="hidden" asp-for="AppSeoLanguages[langCountPanel].Id" value="@seo.Id" />
+                                            <input type="hidden" asp-for="AppSeoLanguages[langCountPanel].AppSeoId" value="@seo.AppSeoId" />
+                                            <input type="hidden" asp-for="AppSeoLanguages[langCountPanel].Lang_Code" value="@seo.Lang_Code" />
+                                        }
+
+                                    </div>
+                                    <input type="hidden" asp-for="PageLanguages[langCountPanel].Id" value="@item.Id" />
+                                    <input type="hidden" asp-for="PageLanguages[langCountPanel].PageId" value="@item.PageId" />
+                                    <input type="hidden" asp-for="PageLanguages[langCountPanel].Lang_Code" value="@item.Lang_Code" />
+                                </div>
+                                langCountPanel++;
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card mb-4">
+                    <div class="card-header">Sabit Alanlar</div>
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label asp-for="File" class="form-label">Görsel</label>
+                            @if (Model.Page != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.Page.FileCode))
+                                {
+                                    <div class="my-2">
+                                        <img class="img-account-profile rounded-1 border border-dark" src="@await Component.InvokeAsync("Image", new { FileCode = Model.Page.FileCode  })">
+                                    </div>
+                                }
+                            }
+                            <input class="form-control" type="file" asp-for="File">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label mb-1" asp-for="Page.ShowView">Sayfa gösterimi</label>
+                            <select class="form-select" asp-for="Page.ShowView">
+                                <option value="">Seçiniz</option>
+                                <option value="1">Yazi üst</option>
+                                <option value="2">Yazı yan</option>
+                                <option value="3">Yazı alt</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="Page.ShowView"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label mb-1" for="switchOne">Ana sayfada gösterilsin mi?</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switchPage" asp-for="Page.IsHome">
+                                <label class="form-check-label" for="switchPage"></label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Page.IsHome"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label mb-1" for="switchOne">Durumu</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="switchOne" asp-for="Page.IsActive">
+                                <label class="form-check-label" for="switchOne"></label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Page.IsActive"></span>
+                        </div>
+                        <input type="hidden" asp-for="Page.Id" />
+                        <input type="hidden" asp-for="Page.AppSeoCode" />
+                        <input type="hidden" asp-for="Page.FileCode" />
+                        <input type="hidden" asp-for="Page.OrderBy" />
+                        <input type="hidden" asp-for="Page.CreateTime" />
+                        <div class="bn">
+                            <button type="submit" class="btn  btn-primary">Kaydet</button>
+                            <a asp-action="Index" class="btn  btn-dark">Vazgeç</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Validation{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
+@section Scripts{
+<script>
+    $(document).on("submit", "#fromloading", function () {
+        $(this).find('button[type="submit"]')
+        $(this).find('button[type="submit"]').attr("disabled", "true");
+        $(this).find('button[type="submit"]').html('');
+        $(this).find('button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Kaydet...')
+        setTimeout(() => {
+            $(this).find('.spinner-border').remove();
+            $(this).find('button[type="submit"]').append('Kaydet');
+            $(this).find('button[type="submit"]').attr("disabled", "false");
+        }, 2000);
+    });
+</script>
+
+}
+
+

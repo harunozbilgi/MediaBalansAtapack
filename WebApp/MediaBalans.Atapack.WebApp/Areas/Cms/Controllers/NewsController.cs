@@ -1,11 +1,13 @@
 ﻿using MediaBalans.Application.Interfaces.Services;
 using MediaBalans.Atapack.WebApp.Areas.Cms.Models;
 using MediaBalans.Atapack.WebApp.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
 {
     [Area("Cms")]
+    [Authorize(Roles = "Admin")]
     public class NewsController : Controller
     {
         private readonly INewsService _newsService;
@@ -106,7 +108,6 @@ namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
         {
             try
             {
-                List<string> fileArray = new();
                 if (model.File != null)
                 {
                     if (model.News.FileCode != null || model.News.FileCode != string.Empty)

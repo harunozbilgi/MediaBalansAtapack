@@ -1,10 +1,12 @@
 ﻿using MediaBalans.Application.Interfaces.Services;
 using MediaBalans.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
 {
     [Area("Cms")]
+    [Authorize(Roles = "Admin")]
     public class LanguagesController : Controller
     {
         private readonly ILanguageService _languageService;

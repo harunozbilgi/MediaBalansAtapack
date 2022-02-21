@@ -1,0 +1,120 @@
+﻿@model AppConfig
+@{
+    ViewData["Title"] = "Index";
+}
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container-xl px-4">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <span class="page-header-icon"><i data-feather="edit-3"></i></span>
+                        Genel  Ayarlar
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-xl px-4 mt-n10">
+    <form id="fromloading" enctype="multipart/form-data" asp-action="Index" asp-antiforgery="true">
+        @if (Model != null)
+        {
+            <input type="hidden" asp-for="Id">
+            <input type="hidden" asp-for="FileCode">
+            <input type="hidden" name="mode" value="true">
+        }
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card card-header-actions mb-4">
+                    <div class="card-header">Görsel</div>
+                    <div class="card-body">
+                      @*  <div class="form-group mb-3">
+                            <label for="file" class="form-label">Logo</label>
+                            @if (Model != null)
+                            {
+                                if (Model.FileCode != null)
+                                {
+                                    <div class="my-2">
+                                        <img class="img-account-profile rounded-1 border border-dark w-25" src="@await Component.InvokeAsync("Image", new { FileCode = Model.FileCode  })">
+                                    </div>
+                                }
+                            }
+                            <input class="form-control" type="file" name="file" id="file">
+                        </div>*@
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Facebook">Facebook </label>
+                            <input type="text" class="form-control" asp-for="Facebook">
+                            <span class="text-danger" asp-validation-for="Facebook"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Instagram">Instagram </label>
+                            <input type="text" class="form-control" asp-for="Instagram">
+                            <span class="text-danger" asp-validation-for="Instagram"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Twitter">Twitter </label>
+                            <input type="text" class="form-control" asp-for="Twitter">
+                            <span class="text-danger" asp-validation-for="Twitter"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="PhoneNumber">Telefon </label>
+                            <input type="text" class="form-control" asp-for="PhoneNumber">
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="PhoneNumberOne">Telefon 2</label>
+                            <input type="text" class="form-control" asp-for="PhoneNumberOne">
+                            <span class="text-danger" asp-validation-for="PhoneNumberOne"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Address">Adres</label>
+                            <input type="text" class="form-control" asp-for="Address">
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="Map">Google Map</label>
+                            <input type="text" class="form-control" asp-for="Map">
+                            <span class="text-danger" asp-validation-for="Map"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="GoogleAnalytics">Google Analytic</label>
+                            <textarea class="form-control" asp-for="GoogleAnalytics" rows="5" cols="5"></textarea>
+                            <span class="text-danger" asp-validation-for="GoogleAnalytics"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="FacebookPixel">Facebook Pixel</label>
+                            <textarea class="form-control" asp-for="FacebookPixel" rows="5" cols="5"></textarea>
+                            <span class="text-danger" asp-validation-for="FacebookPixel"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" asp-for="MetaTag">Meta Tag</label>
+                            <textarea class="form-control" asp-for="MetaTag" rows="5" cols="5"></textarea>
+                            <span class="text-danger" asp-validation-for="MetaTag"></span>
+                        </div>
+                        <div class="bn">
+                            <button type="submit" class="btn  btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).on("submit", "#fromloading", function () {
+            $(this).find('button[type="submit"]')
+            $(this).find('button[type="submit"]').attr("disabled", "true");
+            $(this).find('button[type="submit"]').html('');
+            $(this).find('button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Kaydet...')
+            setTimeout(() => {
+                $(this).find('.spinner-border').remove();
+                $(this).find('button[type="submit"]').append('Kaydet');
+                $(this).find('button[type="submit"]').attr("disabled", "false");
+            }, 2000);
+        });
+    </script>
+}
+

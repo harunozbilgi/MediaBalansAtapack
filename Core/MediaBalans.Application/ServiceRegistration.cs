@@ -15,6 +15,8 @@ namespace MediaBalans.Application
             var assembly = Assembly.GetExecutingAssembly();
             services.Configure<DocumentSetting>(configuration.GetSection(nameof(DocumentSetting)));
 
+            services.AddHttpContextAccessor();
+
             services.AddTransient<ILanguageService, LanguageManager>();
             services.AddTransient<ICategoryService, CategoryManager>();
             services.AddTransient<IDocumentService, DocumentManager>(); 
@@ -25,6 +27,12 @@ namespace MediaBalans.Application
             services.AddTransient<INewsService, NewsManager>();
             services.AddTransient<IServicesService, ServiceManager>();
             services.AddTransient<IServicePropertyService, ServicePropertyManager>();
+            services.AddTransient<IPageService, PageManager>();
+            services.AddTransient<IPagePropertyService, PagePropertyManager>();
+            services.AddTransient<IAppConfigService, AppConfigManager>();
+            services.AddTransient<IAppUserService, AppUserManager>();
+            services.AddTransient<IGalleryService, GalleryManager>();
+
 
             services.AddFluentValidation(options =>
             {

@@ -60,7 +60,7 @@ namespace MediaBalans.Persistence.Repositories
             return await query.ToListAsync();
         }
 
-        public  async Task<T> GetAsync(Guid id)
+        public async Task<T> GetAsync(Guid id)
         {
             return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }

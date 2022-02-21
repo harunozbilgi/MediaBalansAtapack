@@ -7,7 +7,6 @@ namespace MediaBalans.Domain.Entities
     {
         public Guid ProductId { get; set; }
         public string FileCode { get; set; }
-        public bool IsCover { get; set; }
         public virtual Product Product { get; set; }
     }
 }

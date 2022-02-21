@@ -111,6 +111,51 @@ namespace MediaBalans.Persistence.Migrations
                     b.ToTable("AppSeos");
                 });
 
+            modelBuilder.Entity("MediaBalans.Domain.Entities.AppUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Role")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1b5ede51-74b5-499e-abef-ca758cafdaf9"),
+                            CreateTime = new DateTime(2022, 2, 21, 15, 29, 24, 346, DateTimeKind.Local).AddTicks(4656),
+                            Email = "admin@admin.com",
+                            FullName = "Admin",
+                            IsActive = false,
+                            Password = "Admin123",
+                            Role = "Admin"
+                        });
+                });
+
             modelBuilder.Entity("MediaBalans.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -239,8 +284,8 @@ namespace MediaBalans.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6d2cb867-3612-4747-bc0f-b32d4ccb0b34"),
-                            CreateTime = new DateTime(2022, 2, 16, 17, 7, 12, 985, DateTimeKind.Local).AddTicks(8262),
+                            Id = new Guid("daead765-f1b0-491d-aa22-122e791166c1"),
+                            CreateTime = new DateTime(2022, 2, 21, 15, 29, 24, 345, DateTimeKind.Local).AddTicks(3314),
                             FullName = "Azerbaycan",
                             IsActive = true,
                             LangCode = "az",
@@ -248,8 +293,8 @@ namespace MediaBalans.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5ec2fdfc-c825-4762-844b-ecc9edb1ac1f"),
-                            CreateTime = new DateTime(2022, 2, 16, 17, 7, 12, 985, DateTimeKind.Local).AddTicks(8304),
+                            Id = new Guid("37856b91-6286-4b2d-a54e-b36455ac6b9d"),
+                            CreateTime = new DateTime(2022, 2, 21, 15, 29, 24, 345, DateTimeKind.Local).AddTicks(3339),
                             FullName = "Ingilizce",
                             IsActive = true,
                             LangCode = "en",
@@ -257,8 +302,8 @@ namespace MediaBalans.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("74717530-fe6b-4724-bde5-b6642783b643"),
-                            CreateTime = new DateTime(2022, 2, 16, 17, 7, 12, 985, DateTimeKind.Local).AddTicks(8306),
+                            Id = new Guid("556eac81-cc7f-4eb2-8311-9ad33b2c7bf4"),
+                            CreateTime = new DateTime(2022, 2, 21, 15, 29, 24, 345, DateTimeKind.Local).AddTicks(3341),
                             FullName = "Rusca",
                             IsActive = true,
                             LangCode = "ru",
@@ -602,6 +647,10 @@ namespace MediaBalans.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("AppSeoCode")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
+
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime(6)");
 
@@ -610,6 +659,9 @@ namespace MediaBalans.Persistence.Migrations
                         .HasColumnType("varchar(15)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsHome")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("OrderBy")
@@ -746,9 +798,6 @@ namespace MediaBalans.Persistence.Migrations
                         .HasColumnType("varchar(15)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsCover")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<Guid>("ProductId")

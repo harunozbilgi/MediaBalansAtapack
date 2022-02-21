@@ -1,11 +1,13 @@
 ﻿using MediaBalans.Application.Interfaces.Services;
 using MediaBalans.Atapack.WebApp.Areas.Cms.Models;
 using MediaBalans.Atapack.WebApp.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
 {
     [Area("Cms")]
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _categoryService;

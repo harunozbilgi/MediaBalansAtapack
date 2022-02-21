@@ -1,10 +1,12 @@
 ﻿using MediaBalans.Application.Interfaces.Services;
 using MediaBalans.Atapack.WebApp.Areas.Cms.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediaBalans.Atapack.WebApp.Areas.Cms.Controllers
 {
     [Area("Cms")]
+    [Authorize(Roles = "Admin")]
     public class PortfoliosController : Controller
     {
         private readonly IPortfolioService _portfolioService;

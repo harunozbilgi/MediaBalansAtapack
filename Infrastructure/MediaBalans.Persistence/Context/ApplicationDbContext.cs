@@ -31,6 +31,7 @@ namespace MediaBalans.Persistence.Context
             modelBuilder.ApplyConfiguration(new ServiceMap());
             modelBuilder.ApplyConfiguration(new ServicePropertyMap());
             modelBuilder.ApplyConfiguration(new SliderMap());
+            modelBuilder.ApplyConfiguration(new AppUserMap());
 
             modelBuilder.ApplyConfiguration(new AppSeoLanguageMap());
             modelBuilder.ApplyConfiguration(new CategoryLanguageMap());
@@ -62,6 +63,8 @@ namespace MediaBalans.Persistence.Context
         public DbSet<ServiceFile> ServiceFiles { get; set; }
         public DbSet<ServiceProperty> ServiceProperties { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+
 
         #region Language
         public DbSet<AppSeoLanguage> AppSeoLanguages { get; set; }
