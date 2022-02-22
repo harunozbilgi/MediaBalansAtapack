@@ -1,0 +1,122 @@
+﻿@model ServicesViewModel
+@{
+    ViewData["Title"] = "Detail";
+    string lang = ViewBag.Lang;
+    var languageText = Model.Service.ServiceLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+}
+@section Styles{
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+}
+@if (Model.Service.IsPage)
+{
+    <section>
+        <div class="xidmetler-general-main">
+            <div class="container">
+                <div class="partner-heading">
+                    <p class="page-heading">@languageText.Title</p>
+                    <p class="page-text">
+                        @languageText.Subject
+                    </p>
+                </div>
+                <div class="dizayn-card-main">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
+                        @foreach (var item in Model.ServiceProperties)
+                        {
+                            var languageServiceText = item.ServicePropertyLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                            <div class="col widget">
+                                <div class="partner-image-card dizayn-card" data-toggle="modal" data-url="@Url.Action($"PropertyDetail?serviceId={item.ServiceId}")">
+                                    <img src="@await Component.InvokeAsync("Image", new { FileCode = item.ServiceFiles.FirstOrDefault().FileCode  })"
+                                 alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title.ToLower())" />
+                                    <div class="partner-body">
+                                        <p class="heading">@languageServiceText.Title</p>
+                                        <p class="text">
+                                            @languageServiceText.Description
+                                        </p>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="btn btn-dahacox btn-more">
+                        <span>Daha çox</span>
+                        <div class="write-circle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="modalappend"></div>
+}
+else
+{
+    <section>
+        <div class="xidmetler-general-main">
+            <div class="container">
+                <div class="partner-xidmet offset-main">
+                    <div class="row g-5">
+                        <div class="col-12 col-xl-6 pe-lg-5">
+                            <div class="left" data-aos="fade-right">
+                                <h3 class="xidmet-heading">@languageText.Title</h3>
+                                <p class="xidmet-text">
+                                    @languageText.Description
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-6">
+                            <div class="right" data-aos="fade-left">
+                                <img src="@await Component.InvokeAsync("Image", new { FileCode = Model.Service.Image_Url  })" alt="@Model.Service.SlugUrl.ToLower()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+@section Plugins{
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+}
+@section Scripts{
+<script>
+    AOS.init({
+        once: 'true'
+    });
+</script>
+<script>
+    ScrollReveal().reveal('.widget .dizayn-card', {
+        delay: 500,
+        useDelay: 'onload',
+    })
+
+    ScrollReveal().reveal('.widget .dizayn-card', {
+        delay: 0,
+        interval: 250
+    })
+</script>
+<script>
+    var modalAppend = $('#modalappend');
+    $('div[data-toggle="modal"]').click(function () {
+        var url = $(this).data('url');
+        var decodedUrl = decodeURIComponent(url);
+        modalAppend.html('');
+        $.get(decodedUrl).done(function (data) {
+            modalAppend.html(data);
+            var myModal = new bootstrap.Modal(document.getElementById('images-modal'), {
+                keyboard: true,
+                focus:true,
+            });
+            myModal.show();
+        });
+    });
+</script>
+}
+

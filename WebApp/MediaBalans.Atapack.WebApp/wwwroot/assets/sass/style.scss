@@ -1,0 +1,30 @@
+@import "base/fonts";
+@import "base/variables";
+@import "base/media";
+@import "base/animation";
+@import "base/mixin";
+@import "base/extend";
+@import "base/reset"; 
+
+/*components*/
+@import "components/rfs";
+@import "components/partner-heading";
+@import "components/buttons";
+@import "components/image-modal";
+
+/*card*/
+@import "cardlar/image-card";
+@import "cardlar/xabercard";
+@import "cardlar/partner-image-card";
+@import "cardlar/mahsul-card";
+/*Layout*/
+@import "layout/navbar-menu";
+@import "layout/footer";
+
+/*page*/
+@import "pages/alaqa";
+@import "pages/haqqımızda";
+@import "pages/keyfiyat";
+@import "pages/xidmetler";
+@import "pages/mahsullar";
+@import "pages/index";

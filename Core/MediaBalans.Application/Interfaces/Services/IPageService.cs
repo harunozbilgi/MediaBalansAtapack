@@ -10,6 +10,7 @@ namespace MediaBalans.Application.Interfaces.Services
 
         Task<Response<List<Page>>> GetPagesAsync();
         Task<Response<Page>> GetPageAsync(string pageId);
+        Task<Response<Page>> GetPageHomeAsync();
         Task<Response<Page>> GetPageSlugUrlAsync(string slugUrl);
         Task<Response<Page>> AddPageAsync(Page page);
         Task<Response<NoContent>> UpdatePageAsync(Page page);

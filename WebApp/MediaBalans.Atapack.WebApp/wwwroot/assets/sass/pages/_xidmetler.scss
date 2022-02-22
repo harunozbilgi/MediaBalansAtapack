@@ -1,0 +1,42 @@
+.xidmetler-general-main{
+    .partner-xidmet{
+        .left{
+            .xidmet-heading{
+                @include font-size(36px);
+                font-family: $bold;
+                margin-bottom: 20px;
+            }
+            .xidmet-text{
+                font-size: 18px;
+                line-height: 24px;
+                font-family: $regular;
+            }
+        }
+        .right{
+            img{
+                width: 100%;
+                height: 500px;
+                object-fit: cover;
+                border-radius: 20px;
+                @include mobile-l{
+                    height: 300px;
+                }
+            }
+        }
+    }
+    .offset-main,
+    .flexo-main,
+    .teslimat-main{
+        @include padding(70px 0 100px);
+    }
+}
+
+.dizayn-card-main{
+    min-height: 500px;
+}
+
+.my-sizer-element{
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+}

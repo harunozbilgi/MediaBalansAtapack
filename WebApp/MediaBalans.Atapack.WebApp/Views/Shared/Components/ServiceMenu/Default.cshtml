@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Service>
+@{
+     string lang = ViewBag.Lang;
+}
+@foreach (var item in Model)
+ {
+    <div class="sub-item">
+        <a class="subs-links" asp-controller="Services" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl">
+            @item.ServiceLanguages.FirstOrDefault(x=>x.Lang_Code == lang).Title
+        </a>
+    </div>                                    
+ }

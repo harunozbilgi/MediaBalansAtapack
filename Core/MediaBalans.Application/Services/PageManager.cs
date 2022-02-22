@@ -38,6 +38,16 @@ namespace MediaBalans.Application.Services
             throw new NotFoundException();
         }
 
+        public async Task<Response<Page>> GetPageHomeAsync()
+        {
+            var result = await _pageRepository.GetAsync(x => x.IsHome, x => x.PageLanguages);
+            if (result is not null)
+            {
+                return Response<Page>.Success(result);
+            }
+            throw new NotFoundException();
+        }
+
         public async Task<Response<List<Page>>> GetPagesAsync()
         {
             var result = await _pageRepository.GetAllAsync(x => x.OrderBy(x => x.OrderBy), x => x.PageLanguages, x => x.PageLanguages);

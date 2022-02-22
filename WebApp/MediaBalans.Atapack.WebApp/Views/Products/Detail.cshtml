@@ -1,0 +1,91 @@
+﻿@model ProductsViewModel
+@{
+    ViewData["Title"] = "Detail";
+    string lang = ViewBag.Lang;
+}
+@section Styles{
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+}
+<section>
+    <div class="mahsullar-general-main">
+        <div class="container">
+            <div class="mahsullar-top">
+                <div class="row g-5">
+                    <div class="col-12 col-lg-6 col-xl-5">
+                        <div class="left px-4 px-lg-0">
+                            <div class="swiper mahsul-detay-slider">
+                                <div class="swiper-wrapper">
+                                    @foreach (var item in Model.Product.ProductFiles)
+                                    {
+                                        <div class="swiper-slide">
+                                            <img src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
+                                             class="swiper-lazy" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="swiper-navs">
+                                    <button class="btn swiper-prev">
+                                        <i class="bi bi-arrow-left-short"></i>
+                                    </button>
+                                    <button class="btn swiper-next">
+                                        <i class="bi bi-arrow-right-short"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-7 ps-lg-5">
+                        <div class="right ps-lg-5">
+                            @{
+                                var languageText = Model.Product.ProductLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                            }
+                            <h3>@languageText.Title</h3>
+                            <p>
+                                @languageText.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mahsullar-bottom">
+                <div class="bottom-heading d-flex flex-column flex-md-row align-items-center justify-content-between">
+                    <div class="partner-heading ">
+                        <p class="page-heading">Digər məhsullarımız</p>
+                        <p class="page-text">
+                            Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat
+                            malesuada
+                            urna risus.
+                            Pellentesque id mattis morbi elementum.
+                        </p>
+                    </div>
+                    <a asp-controller="Products" asp-action="Index" asp-route-lang="@lang" class="btn btn-dahacox d-flex align-items-center justify-content-center">
+                        Daha çox
+                    </a>
+                </div>
+                <div class="mahsul-detay-card-main">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5 justify-content-center justify-content-xl-start">
+                        @foreach (var item in Model.Products)
+                        {
+                            var languageProdcutText = item.ProductLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                            <div class="col">
+                                <a asp-controller="Products" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="mahsul-card">
+                                    <img class="mahsul-image"
+                                     src="@await Component.InvokeAsync("Image", new { FileCode = item.ProductFiles.FirstOrDefault().FileCode  })"
+                                     alt="@item.SlugUrl.ToLower()" />
+                                    <p class="mahsul-name">@languageProdcutText.Title</p>
+                                    <div class="line"></div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Plugins{
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+}

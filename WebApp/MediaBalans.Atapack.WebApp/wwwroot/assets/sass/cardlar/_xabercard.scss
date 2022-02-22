@@ -1,0 +1,27 @@
+.xaber-card { display: block; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); border-radius: 20px; background-color: #ffffff; overflow: hidden; 
+    &:hover{
+        @extend %transition3;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .xaber-card-body{
+            .xaber-etraflı{
+                background-color: #42a6bc;
+                color: #fff;
+            }
+        }
+    }
+    img { width: 100%; height: 300px; 
+        object-fit: cover; }
+
+    .xaber-card-body { @include padding(30px); 
+
+        .xaber-heading { font-family: $bold; color: #000000; min-height: 43px; overflow: hidden; white-space: inherit; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 18px; margin-bottom: 10px; }
+
+        .xaber-text { min-height: 68px; overflow: hidden; white-space: inherit;
+             text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical; font-size: 16px;
+              
+              line-height: 22px; color: #5a5a5a; font-family: $regular; }
+
+        .xaber-etraflı {@extend %transition3; width: 140px; height: 50px; border-radius: 25px; border: 1px solid #42a6bc; color: #42a6bc; @include margin-top(30px); }
+    }
+}

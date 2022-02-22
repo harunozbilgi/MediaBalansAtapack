@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Gallery>
+@{
+    ViewData["Title"] = "Gallery";
+    string lang = ViewBag.Lang;
+}
+@section Styles{
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+}
+<section>
+    <div class="galeria-mains">
+        <div class="container">
+            <div class="partner-heading">
+                <p class="page-heading">Qalereya</p>
+                <p class="page-text">
+                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
+                    urna risus.
+                    Pellentesque id mattis morbi elementum.
+                </p>
+            </div>
+            <div class="galeria-card-main mb-5">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start g-5">
+                    @{
+                        int count = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <a href="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })" class="image-cards" data-lightbox="image-@count">
+                                <img class="galeria-card-img"
+                                 src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
+                                 alt="@UrlSeoHelper.UrlSeo(item.Name.ToLower())">
+                                <i class="bi bi-zoom-in position-absolute top-50 start-50 translate-middle"></i>
+                            </a>
+                        </div>
+                        count++;
+                    }
+
+                </div>
+                @*<button class="btn btn-dahacox btn-more">
+                    <span>Daha çox</span>
+                    <div class="write-circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
+                    </button>*@
+            </div>
+        </div>
+    </div>
+</section>
+@section Plugins{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+}

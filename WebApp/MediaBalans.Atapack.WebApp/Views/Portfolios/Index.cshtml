@@ -1,0 +1,78 @@
+﻿@model PortfoliosViewModel
+@{
+    ViewData["Title"] = "Index";
+    string lang = ViewBag.Lang;
+}
+@section Styles{
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+}
+<section>
+    <div class="xidmetler-general-main">
+        <div class="container">
+            <div class="partner-heading">
+                <p class="page-heading">Portfolio</p>
+                <p class="page-text">
+                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
+                    urna risus.
+                    Pellentesque id mattis morbi elementum.
+                </p>
+            </div>
+            <div class="portfolio-card-main">
+                <div class="row row-cols-1 row-cols-lg-2 g-5 g-lg-3 g-xl-5">
+                    @foreach (var item in Model.Portfolios)
+                    {
+                        var languageServiceText = item.PortfolioLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                        <div class="col widget">
+                            <div class="partner-image-card portfolio-card" data-toggle="modal" data-url="@Url.Action($"PortfolioDetail?id={item.Id}")">
+                                <img src="@await Component.InvokeAsync("Image", new { FileCode = item.PortfolioFiles.FirstOrDefault().FileCode  })"
+                                 alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title.ToLower())" />
+                                <div class="partner-body">
+                                    <p class="heading">@languageServiceText.Title</p>
+                                    <p class="text">
+                                        @languageServiceText.Description
+                                    </p>
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="btn btn-dahacox">Daha çox</button>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="modalappend"></div>
+@section Plugins{
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+}
+@section Scripts{
+<script>
+    ScrollReveal().reveal('.widget .portfolio-card', {
+          delay: 500,
+          useDelay: 'onload',
+      })
+
+      ScrollReveal().reveal('.widget .portfolio-card', {
+          delay: 0,
+          interval: 250
+      })
+</script>
+<script>
+    var modalAppend = $('#modalappend');
+    $('div[data-toggle="modal"]').click(function () {
+        var url = $(this).data('url');
+        var decodedUrl = decodeURIComponent(url);
+        modalAppend.html('');
+        $.get(decodedUrl).done(function (data) {
+            modalAppend.html(data);
+            var myModal = new bootstrap.Modal(document.getElementById('images-modal'), {
+                keyboard: true,
+                focus:true,
+            });
+            myModal.show();
+        });
+    });
+</script>
+}

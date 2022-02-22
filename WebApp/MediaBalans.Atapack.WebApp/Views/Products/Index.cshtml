@@ -1,0 +1,57 @@
+﻿@model ProductsViewModel
+@{
+    ViewData["Title"] = "Index";
+    string lang = ViewBag.Lang;
+}
+<section>
+    <div class="mahsullar-general-main">
+        <div class="container">
+            <div class="partner-heading">
+                <p class="page-heading">Məhsullarımız</p>
+                <p class="page-text">
+                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
+                    urna risus.
+                    Pellentesque id mattis morbi elementum.
+                </p>
+            </div>
+            <div class="filter-options mb-5">
+                @if (string.IsNullOrEmpty(ViewBag.url))
+                {
+                    <button class="btn me-3 active" data-group="all">Hepsi</button>
+                }else{
+                    <button class="btn me-3" data-group="all">Hepsi</button>
+                }
+                @foreach (var item in Model.Categories)
+                {
+                    var languageText = item.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
+                    <button class="btn me-3 @(ViewBag.url == item.SlugUrl.ToLower() ? "active" : "")" data-group="@languageText">@languageText</button>
+                }
+            </div>
+            <div class="mahsullar-card-content">
+                <div class="mahsul-card-main">
+                    <div id="mahsul-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
+                        @foreach (var item in Model.Products)
+                        {
+                            var languageCategoryText = item.Category.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
+                            var languageProdcutText = item.ProductLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                            <div class="col mahsul-item" data-groups='["@languageCategoryText"]'>
+                                <a asp-controller="Products" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="mahsul-card">
+                                    <img class="mahsul-image"
+                                     src="@await Component.InvokeAsync("Image", new { FileCode = item.ProductFiles.FirstOrDefault().FileCode  })"
+                                     alt="@item.SlugUrl.ToLower()" />
+                                    <p class="mahsul-name">@languageProdcutText.Title</p>
+                                    <div class="line"></div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <button class="btn btn-dahacox">Daha çox</button>
+            </div>
+        </div>
+    </div>
+</section>
+@section Plugins{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.4.1/shuffle.min.js"></script>
+<script src="~/assets/js/suflee.js"></script>
+}

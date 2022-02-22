@@ -10,6 +10,7 @@ namespace MediaBalans.Application.Interfaces.Services
     {
         Task<Response<List<ServiceProperty>>> GetServicePropertiesAsync(string serviceId);
         Task<Response<ServiceProperty>> GetServicePropertyAsync(string serviceId);
+        Task<Response<ServiceProperty>> GetServiceByIdAsync(string serviceId);
         Task<Response<ServiceProperty>> AddServicePropertyAsync(ServiceProperty service);
         Task<Response<NoContent>> UpdateServicePropertyAsync(ServiceProperty service);
         Task<Response<NoContent>> RemoveServicePropertyAsync(ServiceProperty service);

@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var config = (await configService.GetByAppConfigAsync()).Data;
+    string lang = ViewBag.Lang;
+}
+<section>
+    <div class="alaqa-main">
+        <div class="container">
+            <div class="partner-heading">
+                <p class="page-heading">Əlaqə</p>
+                <p class="page-text">
+                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
+                    urna risus.
+                    Pellentesque id mattis morbi elementum.
+                </p>
+            </div>
+            <div class="alaqa-info-main mb-5">
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <div class="google-map">
+                            <iframe src="@config.Map"
+                                    width="100%" height="100%" style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="info-box">
+                            <p class="info-heading mb-3 mb-lg-5">Ünvan</p>
+                            <p class="text-unvan">@config.Address</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 mt-4 mt-md-0">
+                        <div class="info-box">
+                            <p class="info-heading mb-3 mb-lg-5">Əlaqə</p>
+                            <ul class="info-list d-flex flex-column">
+                                <li class="info-item mb-4">
+                                    <a href="tel:@config.PhoneNumber" class="d-flex align-items-center">
+                                        <i class="bi bi-telephone-fill me-2"></i>
+                                        @config.PhoneNumber
+                                    </a>
+                                </li>
+                                <li class="info-item mb-4">
+                                    <a href="tel:@config.PhoneNumberOne" class="d-flex align-items-center">
+                                        <i class="bi bi-telephone-fill me-2"></i>
+                                        @config.PhoneNumberOne
+                                    </a>
+                                </li>
+                                <li class="info-item">
+                                    <a href="mailto:@config.Email" class="d-flex align-items-center">
+                                        <i class="bi bi-envelope-fill me-2"></i>
+                                        @config.Email
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 mt-5 mt-xl-0">
+                        <div class="info-box">
+                            <p class="info-heading mb-3 mb-lg-5">Sosial şəbəkə hesabları</p>
+                            <ul class="social-list d-flex align-items-center">
+                                <li class="social-item me-4">
+                                    <a href="@config.Facebook" target="_blank" class="social-links d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="social-item me-4">
+                                    <a href="@config.Instagram" target="_blank" class="social-links d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="social-item">
+                                    <a href="@config.Twitter" target="_blank" class="social-links d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3 mt-5 mt-xl-0">
+                        <form class="alaqa-form" autocomplete="off">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Ad">
+                                <label for="floatingInput">Ad</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="E-mail">
+                                <label for="floatingInput">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="Telefon">
+                                <label for="floatingInput">Telefon</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <textarea type="text" class="form-control area" id="floatingInput"
+                                          placeholder="Mesaj"></textarea>
+                                <label for="floatingInput">Mesaj</label>
+                            </div>
+                            <div class="upload-box">
+                                <div class="upload-1">
+                                    <label for="Reference" class="custom-file-upload d-flex align-items-center">
+                                        <i class="bi bi-file-arrow-up me-2"></i>
+                                        File əlavə et
+                                    </label>
+                                    <input type="file" class="form-control photo-file-upload" id="Reference" />
+                                </div>
+                                <div class="file-uploading">
+                                    <div class="write-circle">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <span class="uploading-text">
+                                        Photo Yükleniyor...
+                                    </span>
+                                </div>
+                                <div class="file-main-general">
+                                    <div class="file-main file-reference-main row row-cols-1">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-send d-block my-3">
+                                <span>
+                                    Göndər
+                                </span>
+                                <div class="write-circle">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

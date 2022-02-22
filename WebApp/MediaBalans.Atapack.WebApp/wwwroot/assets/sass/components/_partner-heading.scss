@@ -1,0 +1,20 @@
+.partner-heading{
+    @include padding(70px 0);
+    width: 30%;
+    @include desktop-sm{
+        width: 90%;
+    }
+    @include mobile-display{
+        width: 80%;
+    }
+    .page-heading{
+        @include font-size(36px);
+        font-family: $bold;
+        margin-bottom: 20px;
+    }
+    .page-text{
+        font-family: $regular;
+        line-height: 22px;
+        color: #5a5a5a;
+    }
+}

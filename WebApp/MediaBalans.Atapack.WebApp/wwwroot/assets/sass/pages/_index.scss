@@ -1,0 +1,197 @@
+.home-header-slider-section {
+    .header-slider {  
+        .swiper-wrapper {
+            .swiper-slide {
+                height: calc(100vh - 100px);
+                @include mobile-display{
+                    height: inherit;
+                }
+                .slider-text-main{
+                    width: 70%;
+                    @include mobile-l{
+                        width: 100%;
+                    }
+                    .slider-heading { @include font-size(36px); font-family: $bold; color: #000; }
+
+                    .slider-text { font-family: $regular; font-size: 18px;  @include margin(20px 0 75px); line-height: 22px;}
+    
+                    .btn-etraflı { width: 160px; height: 50px; border-radius: 25px; background-color: #42a6bc; color: #fff; font-family: $semibold; }
+                    
+                }
+
+                .slider-image { width: 100%; height: 600px; 
+                    object-fit: cover;
+                    border-radius: 20px;
+                    @include mobile-xl{
+                        height: 467px;
+                    }
+                    @include mobile-l{
+                        height: 397px;
+                    }
+                    @include mobile-xsm{
+                        height: 273px;
+                    }
+                }
+            }
+
+        }
+        .swiper-pagination{
+            text-align: left;
+            bottom: 66px;
+            @include mobile-display{
+                position: relative;
+                bottom: inherit;
+                margin-top: 26px;
+            }
+            .swiper-pagination-bullet{
+                width: 15px;
+height: 15px;
+background-color: #42a6bc;
+opacity: 0.5;
+margin-right: 10px;
+            }
+            .swiper-pagination-bullet-active{
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
+
+.home-mahsullar-section {
+    .home-mahsul-heading {
+        .partner-heading { @include desktop-sm { width: 70%; }
+            @include mobile-display { width: 100%; }
+        }
+
+        .btn-dahacox { margin: inherit; }
+    }
+    .home-mahsullar-slider {
+        .swiper-wrapper {
+            .swiper-slide {
+                .mahsul-card {
+                    .mahsul-image { height: 200px; }
+                    .mahsul-name{
+                        @include mobile-l{
+                            padding: 8px;
+                            font-size: 15px;
+                        }
+                      
+                    }
+                }
+            }
+        }
+
+        .swiper-navs { z-index: 1; 
+            @include mobile-l{
+                display: flex;
+                justify-content: center;
+                margin: 40px 0 20px;
+            }
+            .btn { width: 50px; height: 50px;  background-color: rgba(255, 255, 255, 0.40); 
+
+                i {@include font-size(60px); color: #fff; position: absolute;  left: 50%; transform: translate(-50%,-90%); }
+            }
+
+            .swiper-prev { position: absolute; z-index: 1; transform: translateY(-100%);
+                width: 16%;
+                height: 100%;
+                @extend %transition3;
+                @include desktop-l{
+                    width: 19%;
+                }
+                @include desktop-xl{
+                    width: 19%;
+                }
+                @include desktop-sm{
+                    width: 24%;
+                }
+                @include mobile-xl{
+                    width: 32%;
+                }
+                @include mobile-l{
+                    position: inherit;
+                    left: inherit;
+                    right: inherit;
+                    background-color: transparent;
+                    opacity: 1;
+                    width: inherit;
+                    height: inherit;
+                    transform: translateY(0);
+                    margin-right: 10px;
+                }
+            }
+
+            .swiper-next {  position: absolute; z-index: 1; right: 0px; transform: translateY(-100%);
+                width: 16%;
+                height: 100%;
+                @extend %transition3;
+                @include desktop-l{
+                    width: 19%;
+                }
+                @include desktop-xl{
+                    width: 19%;
+                }
+                @include desktop-sm{
+                    width: 24%;
+                }
+                @include mobile-xl{
+                    width: 32%;
+                }
+                @include mobile-l{
+                    position: inherit;
+                    left: inherit;
+                    right: inherit;
+                    background-color: transparent;
+                    opacity: 1;
+                    width: inherit;
+                    height: inherit;
+                    transform: translateY(0);
+                }
+            }
+               
+        }
+    }
+}
+
+.home-haqqımızda-section {
+    .partner-heading { width: 52%;
+        @include mobile-display{
+            width: 100%;
+        }
+    }
+
+    .home-haqqımızda-image { border-radius: 20px; overflow: hidden; position: relative; 
+
+        &::before { content: ''; width: 100%; height: 100%; position: absolute; top: 0px; background-color: rgba(0, 0, 0, 0.2); }
+
+        img { width: 100%; height: 490px; @include mobile-l{
+            height: 192px;
+        }
+            object-fit: cover; }
+    }
+}
+
+.home-xidmetler-section {
+    .home-xidmetler-card-main { @include padding-bottom(100px); 
+
+        .xidmet-card { display: block; @include padding(50px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border-radius: 20px; background-color: #ffffff; height: 360px; 
+            @extend %transition3; 
+
+            &:hover { background-color: #42a6bc; 
+
+                .xidmet-text,
+                .xidmet-heading { color: #fff; }
+            }
+
+            .xidmet-heading { @extend %transition3; @include padding(40px 0 15px); @include font-size(24px); color: #000; font-family: $bold; }
+
+            .xidmet-text { @extend %transition3; font-size: 15px; font-family: $regular; color: #5a5a5a; line-height: 20px; overflow: hidden; white-space: inherit; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; }
+        }
+    }
+}
+
+.partner-section {
+    .partner-heading { @include padding(90px 0 70px); }
+}

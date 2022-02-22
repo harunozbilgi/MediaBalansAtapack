@@ -1,0 +1,15 @@
+.keyfiyat-general-main {
+    .keyfiyat-main {
+        @include padding-bottom(100px);
+        img { width: 100%; height: 500px; border-radius: 20px; }
+
+        .keyfiyat-text { font-size: 18px; line-height: 24px; color: #5a5a5a; text-align: center; @include padding(70px); }
+
+        .iso-logo-main {
+            .btn-iso { width: 150px; height: 70px; border-radius: 20px; background-color: #c4c4c4; color: #000000; font-family: $bold;
+                 @include margin-right(45px); 
+                
+                }
+        }
+    }
+}

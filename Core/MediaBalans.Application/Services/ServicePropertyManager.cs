@@ -54,7 +54,18 @@ namespace MediaBalans.Application.Services
             }
             throw new NotFoundException();
         }
+        public async Task<Response<ServiceProperty>> GetServiceByIdAsync(string serviceId)
+        {
+            var result = await _servicePropertyRepository.GetAsync(x => x.ServiceId.ToString() == serviceId,
+              x => x.ServiceFiles,
+              x => x.ServicePropertyLanguages);
 
+            if (result is not null)
+            {
+                return Response<ServiceProperty>.Success(result);
+            }
+            throw new NotFoundException();
+        }
         public async Task<Response<NoContent>> RemoveServiceFileAsync(string serviceId)
         {
             await _servicePropertyRepository.DeleteServiceFileAsync(serviceId);

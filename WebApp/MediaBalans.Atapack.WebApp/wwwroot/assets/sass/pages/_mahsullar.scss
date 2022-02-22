@@ -1,0 +1,68 @@
+.mahsullar-general-main {
+    .partner-heading { @include padding-bottom(40px); }
+
+    .filter-options { @include mobile-display { display: flex; flex-wrap: wrap; justify-content: center; }
+
+        .btn { height: 50px; border-radius: 25px; background-color: #ededed; font-family: $semibold; font-size: 18px; padding: 0 25px; @include mobile-l { margin-bottom: 15px; }
+
+            &:hover,
+            &.active { background-color: #42a6bc; color: #fff; }
+        }
+    }
+
+    .mahsul-card-main { min-height: 410px; }
+
+    .my-sizer-element { position: absolute; opacity: 0; visibility: hidden; }
+}
+
+.mahsullar-general-main {
+    .mahsullar-top { @include padding-top(70px); 
+
+        .left {
+            .mahsul-detay-slider {
+                .swiper-wrapper {
+                    .swiper-slide { height: 600px; border-radius: 20px; overflow: hidden; @include desktop-l { height: 485px; }
+
+                        @include desktop-sm { height: 450px; }
+
+                        @include mobile-l { height: 402px; }
+
+                        img { width: 100%; height: 100%; 
+                            object-fit: cover; }
+                    }
+                }
+                .swiper-navs { position: absolute; bottom: 35px; left: 35px; z-index: 1; 
+
+                    .btn { width: 50px; height: 50px; border-radius: 25px; background-color: rgba(255, 255, 255, 0.80); margin-right: 15px; 
+
+                        i { font-size: 25px; color: #000; }
+                    }
+                }
+            }
+        }
+        .right { width: 90%; 
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 { @include font-size(36px); font-family: $semibold; margin-bottom: 25px; }
+
+            p { font-size: 18px; font-family: $regular; line-height: 22px; }
+        }
+    }
+
+    .mahsullar-bottom {
+        .bottom-heading {
+            .partner-heading { @include desktop-sm { width: 70%; }
+
+                @include mobile-display { width: 100%; }
+            }
+
+            .btn-dahacox { margin: inherit; }
+        }
+
+        .mahsul-detay-card-main { @include padding(30px 0 100px); }
+    }
+}

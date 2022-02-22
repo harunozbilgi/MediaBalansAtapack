@@ -1,0 +1,65 @@
+﻿@using System.Globalization
+@model NewViewModel
+@{
+    ViewData["Title"] = "Detail";
+    string lang = ViewBag.Lang;
+    var languageNewText = Model.News.NewsLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+}
+<section>
+    <div class="xaberlerdetay-main">
+        <div class="container">
+            <div class="xaber-detay-top">
+                <div class="row gx-5 gy-5 gy-lg-0">
+                    <div class="col-12 col-lg-6 col-xl-5 ">
+                        <div class="left">
+                            <p class="xaber-date">@Model.News.CreateTime.ToString("dd MMMM yyyy",new CultureInfo(lang)) </p>
+                            <p class="xaber-heading">@languageNewText.Title</p>
+                            <p class="xaber-text">
+                                @languageNewText.Description
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl-7">
+                        <div class="right">
+                            <img src="@await Component.InvokeAsync("Image", new { FileCode = Model.News.FileCode  })"
+                                 alt="@Model.News.SlugUrl.ToLower()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="xaber-detay-alt">
+                <div class="partner-heading">
+                    <p class="page-heading">Digər xəbərlər</p>
+                    <p class="page-text">
+                        Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
+                        urna risus.
+                        Pellentesque id mattis morbi elementum.
+                    </p>
+                </div>
+                <div class="xaberler-card-main">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-5 justify-content-center justify-content-xl-start">
+                        @foreach (var item in Model.NewsList)
+                        {
+                            var languageText = item.NewsLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+                            <div class="col">
+                                <a asp-controller="News" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="xaber-card">
+                                    <img src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
+                                     alt="@item.SlugUrl.ToLower()">
+                                    <div class="xaber-card-body">
+                                        <p class="xaber-heading">@languageText.Title</p>
+                                        <p class="xaber-text">@languageText.Description.Substring(0,100).ToString()</p>
+                                        <span class="xaber-etraflı d-flex align-items-center justify-content-center">
+                                            Ətraflı
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    <a asp-controller="News" asp-action="Index" asp-route-lang="@lang" class="btn btn-dahacox d-flex align-items-center justify-content-center">Daha çox</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

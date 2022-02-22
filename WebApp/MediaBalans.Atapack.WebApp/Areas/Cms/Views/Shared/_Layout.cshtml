@@ -32,10 +32,10 @@
                 <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                     <div class="dropdown-header d-flex align-items-center">
                         <img class="dropdown-user-img" src="~/assets/cms/img/illustrations/profiles/profile-2.png" />
-                        @*<div class="dropdown-user-details">
+                        <div class="dropdown-user-details">
                             <div class="dropdown-user-details-name">@User.Identity.Name</div>
                             <div class="dropdown-user-details-email">@User.FindFirst(ClaimTypes.Email).Value</div>
-                            </div>*@
+                        </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" asp-area="Cms" asp-controller="Account" asp-action="Logout">
@@ -73,7 +73,6 @@
                                 <a class="nav-link" asp-area="Cms" asp-controller="Services" asp-action="Index">Hizmetler</a>
                                 <a class="nav-link" asp-area="Cms" asp-controller="Portfolios" asp-action="Index">Portföy</a>
                                 <a class="nav-link" asp-area="Cms" asp-controller="Galleries" asp-action="Index">Görseller</a>
-                                
                             </nav>
                         </div>
                         <div class="sidenav-menu-heading">Ayarlar</div>
@@ -90,7 +89,7 @@
                 <div class="sidenav-footer">
                     <div class="sidenav-footer-content">
                         <div class="sidenav-footer-subtitle">Giriş yaptı:</div>
-                        @*  <div class="sidenav-footer-title">@User.Identity.Name</div>*@
+                        <div class="sidenav-footer-title">@User.Identity.Name</div>
                     </div>
                 </div>
             </nav>
