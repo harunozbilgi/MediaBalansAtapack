@@ -3,6 +3,9 @@
     ViewData["Title"] = "Detail";
     string lang = ViewBag.Lang;
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = Model.Product.AppSeoCode, filecode=Model.Product.ProductFiles.FirstOrDefault().FileCode  })
+}
 @section Styles{
 <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 }
@@ -51,16 +54,13 @@
             <div class="mahsullar-bottom">
                 <div class="bottom-heading d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <div class="partner-heading ">
-                        <p class="page-heading">Digər məhsullarımız</p>
+                        <p class="page-heading">@configuration[$"Product.Other.Title:{lang}"]</p>
                         <p class="page-text">
-                            Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat
-                            malesuada
-                            urna risus.
-                            Pellentesque id mattis morbi elementum.
+                            @configuration[$"Product.Other.Text:{lang}"]
                         </p>
                     </div>
                     <a asp-controller="Products" asp-action="Index" asp-route-lang="@lang" class="btn btn-dahacox d-flex align-items-center justify-content-center">
-                        Daha çox
+                        @configuration[$"More:{lang}"]
                     </a>
                 </div>
                 <div class="mahsul-detay-card-main">

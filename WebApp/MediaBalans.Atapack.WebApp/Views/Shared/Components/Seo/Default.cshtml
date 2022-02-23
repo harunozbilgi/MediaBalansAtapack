@@ -1,0 +1,25 @@
+﻿@model AppSeo
+@{
+    string lang = ViewBag.Lang;
+    var seo = Model;
+    var config = (await configService.GetByAppConfigAsync()).Data ?? null; 
+    string fileCode = ViewBag.filecode != null ? ViewBag.filecode : config.FileCode;
+}
+@if (seo != null)
+{
+    <meta name="title" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title">
+    <meta name="description" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Description">
+    <meta name="keywords" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Keyword">
+    <meta property="og:title" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title" />
+    <meta property="og:description" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Description" />
+    <meta property="og:site_name" content="Atapack" />
+    <meta property="og:locale" content="@lang" />
+    <meta property="og:type" content="media" />
+    <meta property="og:image" content="@await Component.InvokeAsync("Image", new { FileCode = fileCode })" />
+    <meta property="og:url" content="@(Context.Request.Host + Context.Request.Path)" />
+    <meta name="twitter:title" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title" />
+    <meta name="twitter:description" content="@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Description" />
+    <meta name="twitter:site" content="Atapack" />
+    <meta name="twitter:image" content="@await Component.InvokeAsync("Image", new { FileCode = fileCode })" />
+    <title>@seo.AppSeoLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title </title>
+}

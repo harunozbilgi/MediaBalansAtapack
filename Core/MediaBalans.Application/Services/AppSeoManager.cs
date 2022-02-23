@@ -1,5 +1,4 @@
 ﻿using MediaBalans.Application.Dtos;
-using MediaBalans.Application.Exceptios;
 using MediaBalans.Application.Interfaces.Repositories;
 using MediaBalans.Application.Interfaces.Services;
 using MediaBalans.Application.Wrappers;
@@ -45,7 +44,7 @@ namespace MediaBalans.Application.Services
             {
                 return Response<AppSeo>.Success(row);
             }
-            throw new NotFoundException();
+            return Response<AppSeo>.Error("Kayit bulunamadi", 404);
         }
 
         public async Task<Response<AppSeo>> GetByPageNameAsync(string pageName)
@@ -56,7 +55,7 @@ namespace MediaBalans.Application.Services
             {
                 return Response<AppSeo>.Success(row);
             }
-            throw new NotFoundException();
+            return Response<AppSeo>.Error("Kayit bulunamadi", 404);
         }
 
         public async Task<Response<AppSeo>> GetBySeoCodeAsync(string seoCode)

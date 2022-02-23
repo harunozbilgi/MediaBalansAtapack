@@ -4,6 +4,9 @@
     string lang = ViewBag.Lang;
     var languageText = Model.Service.ServiceLanguages.FirstOrDefault(x => x.Lang_Code == lang);
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = Model.Service.AppSeoCode, filecode=Model.ServiceProperties.FirstOrDefault().ServiceFiles.FirstOrDefault().FileCode  })
+}
 @section Styles{
 <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -39,14 +42,14 @@
                             </div>
                         }
                     </div>
-                    <button class="btn btn-dahacox btn-more">
-                        <span>Daha çox</span>
+                    @*                    <button class="btn btn-dahacox btn-more">
+                        <span>@configuration[$"More:{lang}"]</span>
                         <div class="write-circle">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                         </div>
-                    </button>
+                        </button>*@
                 </div>
             </div>
         </div>

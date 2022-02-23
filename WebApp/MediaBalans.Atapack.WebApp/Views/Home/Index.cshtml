@@ -3,11 +3,13 @@
     ViewData["Title"] = "Home Page";
     string lang = ViewBag.Lang;
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = "Home"  })
+}
 @section Styles{
      <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 }
-
 <section class="home-header-slider-section">
     <div class="container">
         <div class="swiper header-slider">
@@ -25,7 +27,7 @@
                                 @if (!string.IsNullOrEmpty(item.Url))
                                 {
                                     <a href="@item.Url" class="btn btn-etraflı d-flex align-items-center justify-content-center">
-                                        Ətraflı
+                                        @configuration[$"Details:{lang}"]
                                     </a>
                                 }
                             </div>
@@ -33,7 +35,7 @@
                         <div class="col-12 col-lg-6">
                             <img class="slider-image swiper-lazy"
                              src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
-                             alt="@UrlSeoHelper.UrlSeo(languageText.Title.ToLower())" />
+                             alt="@UrlSeoHelper.UrlSeo(languageText.Title)" />
                         </div>
                     </div>
                 }
@@ -48,16 +50,13 @@
     <div class="container">
         <div class="home-mahsul-heading d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div class="partner-heading ">
-                <p class="page-heading">Məhsullarımız</p>
+                <p class="page-heading">@configuration[$"Product.Title:{lang}"]</p>
                 <p class="page-text">
-                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat
-                    malesuada
-                    urna risus.
-                    Pellentesque id mattis morbi elementum.
+                   @configuration[$"Product.Text:{lang}"]
                 </p>
             </div>
             <a asp-controller="Products" asp-action="Index" asp-route-lang="@lang" class="btn btn-dahacox d-flex align-items-center justify-content-center">
-                Daha çox
+                @configuration[$"More:{lang}"]
             </a>
         </div>
         <div class="swiper home-mahsullar-slider mt-5 mt-md-0">
@@ -109,11 +108,9 @@
 <section class="partner-section home-xidmetler-section">
     <div class="container">
         <div class="partner-heading">
-            <p class="page-heading">Xidmətlərimiz</p>
+            <p class="page-heading">@configuration[$"Service.Title:{lang}"]</p>
             <p class="page-text">
-                Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
-                urna risus.
-                Pellentesque id mattis morbi elementum.
+               @configuration[$"Service.Text:{lang}"]
             </p>
         </div>
         <div class="home-xidmetler-card-main">
@@ -135,7 +132,6 @@
                         </a>
                     </div>
                 }
-
             </div>
         </div>
     </div>

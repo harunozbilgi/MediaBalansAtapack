@@ -3,6 +3,9 @@
     ViewData["Title"] = "Gallery";
     string lang = ViewBag.Lang;
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = "Gallery"  })
+}
 @section Styles{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 }
@@ -10,15 +13,13 @@
     <div class="galeria-mains">
         <div class="container">
             <div class="partner-heading">
-                <p class="page-heading">Qalereya</p>
+                <p class="page-heading">@configuration[$"Gallery.Title:{lang}"]</p>
                 <p class="page-text">
-                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
-                    urna risus.
-                    Pellentesque id mattis morbi elementum.
+                    @configuration[$"Gallery.Text:{lang}"]
                 </p>
             </div>
             <div class="galeria-card-main mb-5">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start g-5">
+                <div id="appendFilter" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start g-5">
                     @{
                         int count = 1;
                     }
@@ -36,14 +37,14 @@
                     }
 
                 </div>
-                @*<button class="btn btn-dahacox btn-more">
-                    <span>Daha çox</span>
+                <button class="btn btn-dahacox btn-more" data-controller="Home" data-action="Filter">
+                    <span>@configuration[$"More:{lang}"]</span>
                     <div class="write-circle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    </div>
-                    </button>*@
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                     </div>
+                </button>
             </div>
         </div>
     </div>

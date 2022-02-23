@@ -3,23 +3,24 @@
     ViewData["Title"] = "Index";
     string lang = ViewBag.Lang;
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = "Product"  })
+}
 <section>
     <div class="mahsullar-general-main">
         <div class="container">
             <div class="partner-heading">
-                <p class="page-heading">Məhsullarımız</p>
+                <p class="page-heading">@configuration[$"Product.Title:{lang}"]</p>
                 <p class="page-text">
-                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
-                    urna risus.
-                    Pellentesque id mattis morbi elementum.
+                   @configuration[$"Product.Text:{lang}"]
                 </p>
             </div>
             <div class="filter-options mb-5">
                 @if (string.IsNullOrEmpty(ViewBag.url))
                 {
-                    <button class="btn me-3 active" data-group="all">Hepsi</button>
+                    <button class="btn me-3 active" data-group="all">@configuration[$"Product.Category.Text:{lang}"]</button>
                 }else{
-                    <button class="btn me-3" data-group="all">Hepsi</button>
+                    <button class="btn me-3" data-group="all">@configuration[$"Product.Category.Text:{lang}"]</button>
                 }
                 @foreach (var item in Model.Categories)
                 {
@@ -46,7 +47,7 @@
                         }
                     </div>
                 </div>
-                <button class="btn btn-dahacox">Daha çox</button>
+                @* <button class="btn btn-dahacox">@configuration[$"More:{lang}"]</button>*@
             </div>
         </div>
     </div>

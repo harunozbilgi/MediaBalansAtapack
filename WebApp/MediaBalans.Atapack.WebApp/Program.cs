@@ -1,6 +1,8 @@
 using MediaBalans.Application;
 using MediaBalans.Persistence;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceRegistration(builder.Configuration);
 builder.Services.AddApplicationRegistration(builder.Configuration);
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new List<CultureInfo>
+                 {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("az-Latn"),
+                    new CultureInfo("ru-RU"),
+                 };
+    options.DefaultRequestCulture = new RequestCulture(culture: "az-Latn", uiCulture: "az-Latn");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.RequestCultureProviders = new List<IRequestCultureProvider>
+                 {
+                    new QueryStringRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                 };
+});
+
 
 
 builder.Services.AddAuthentication(options =>

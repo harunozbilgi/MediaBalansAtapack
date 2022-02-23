@@ -5,6 +5,9 @@
     string lang = ViewBag.Lang;
     var languageNewText = Model.News.NewsLanguages.FirstOrDefault(x => x.Lang_Code == lang);
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = Model.News.AppSeoCode, filecode=Model.News.FileCode  })
+}
 <section>
     <div class="xaberlerdetay-main">
         <div class="container">

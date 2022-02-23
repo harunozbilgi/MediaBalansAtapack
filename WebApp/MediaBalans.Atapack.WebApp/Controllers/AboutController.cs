@@ -15,7 +15,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
             _pagePropertyService = pagePropertyService;
         }
 
-        [Route("/{lang}/{slugUrl}")]
+        [Route("/{lang}/haqqimizda/{slugUrl}")]
         public async Task<IActionResult> Index(string lang, string slugUrl)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))

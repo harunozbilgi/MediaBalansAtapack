@@ -4,6 +4,9 @@
     string lang = ViewBag.Lang;
     var languageText = Model.Page.PageLanguages.FirstOrDefault(x => x.Lang_Code == lang);
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = Model.Page.AppSeoCode, filecode=Model.Page.FileCode  })
+}
 @section Styles{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -80,9 +83,7 @@
                 <div class="partner-heading">
                     <p class="page-heading">@languageText.Title</p>
                     <p class="page-text">
-                        Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
-                        urna risus.
-                        Pellentesque id mattis morbi elementum.
+                        @configuration[$"About.Quality.Text:{lang}"]
                     </p>
                 </div>
                 <div class="keyfiyat-main">

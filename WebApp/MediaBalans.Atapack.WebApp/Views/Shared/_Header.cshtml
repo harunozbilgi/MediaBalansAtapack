@@ -1,5 +1,6 @@
 ﻿@{
     string lang = ViewBag.Lang;
+    var url = Context.Request.Path;
 }
 <header>
     <nav id="navs" class="navbar navbar-expand-lg p-0 m-0 flex-column">
@@ -12,27 +13,26 @@
                     <div class="navbar-nav w-100 h-100  align-items-center justify-content-center">
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="Home" asp-action="Index" asp-route-lang="@lang">
-                                Ana səhifə
+                                @configuration[$"Home:{lang}"]
                             </a>
                         </div>
                         <div class="nav-item">
                             <span class="nav-link d-flex align-items-center">
-                                Haqqımızda
+                                @configuration[$"About:{lang}"]
                                 <i class="bi bi-chevron-down arrow"></i>
                             </span>
                             <div class="sub-menu-content">
                                 <div class="sub-menu">
-                                    <div class="sub-item"><a class="subs-links" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Hedeflerimiz">Hədəflərimiz</a></div>
-                                    <div class="sub-item"><a class="subs-links" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Missiyamiz">Missiyamız</a></div>
-                                    <div class="sub-item"><a class="subs-links" asp-controller="Home" asp-action="Gallery" asp-route-lang="@lang">Qalereya</a></div>
-                                    <div class="sub-item"><a class="subs-links" asp-controller="News" asp-action="Index" asp-route-lang="@lang">Xəbərlər</a></div>
+                                    <div class="sub-item"><a class="subs-links" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Hedeflerimiz">@configuration[$"Coale:{lang}"]</a></div>
+                                    <div class="sub-item"><a class="subs-links" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Missiyamiz">@configuration[$"Mission:{lang}"]</a></div>
+                                    <div class="sub-item"><a class="subs-links" asp-controller="Home" asp-action="Gallery" asp-route-lang="@lang">@configuration[$"Gallery:{lang}"]</a></div>
+                                    <div class="sub-item"><a class="subs-links" asp-controller="News" asp-action="Index" asp-route-lang="@lang">@configuration[$"News:{lang}"]</a></div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="nav-item">
                             <span class="nav-link d-flex align-items-center">
-                                Məhsullarımız
+                                @configuration[$"Product:{lang}"]
                                 <i class="bi bi-chevron-down arrow"></i>
                             </span>
                             <div class="sub-menu-content">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="nav-item">
                             <span class="nav-link d-flex align-items-center">
-                                Xidmətlərimiz
+                                @configuration[$"Services:{lang}"]
                                 <i class="bi bi-chevron-down arrow"></i>
                             </span>
                             <div class="sub-menu-content">
@@ -54,29 +54,42 @@
                         </div>
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Keyfiyyet">
-                                Keyfiyyət
+                                @configuration[$"Quality:{lang}"]
                             </a>
                         </div>
-
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="Portfolios" asp-action="Index" asp-route-lang="@lang">
-                                Portfolio
+                                @configuration[$"Portfolio:{lang}"]
                             </a>
                         </div>
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="Contact" asp-action="Index" asp-route-lang="@lang">
-                                Əlaqə
+                                @configuration[$"Contact:{lang}"]
                             </a>
                         </div>
                         <div class="nav-item">
                             <span class="nav-link d-flex align-items-center">
-                                <span class="position-relative">AZ</span>
+                                <span class="position-relative">
+                                    @if (lang == "az")
+                                    {
+                                        <text>AZ</text>
+                                    }
+                                    @if (lang == "en")
+                                    {
+                                        <text>EN</text>
+                                    }
+                                    @if (lang == "ru")
+                                    {
+                                        <text>RU</text>
+                                    }
+                                </span>
                                 <i class="bi bi-chevron-down arrow"></i>
                             </span>
                             <div class="sub-menu-content sub-content-lang">
                                 <div class="sub-menu lang-sub-menu js-down">
-                                    <div class="sub-item lang-item"><a class="subs-links" href="#">EN</a></div>
-                                    <div class="sub-item lang-item"><a class="subs-links" href="#">RU</a></div>
+                                    <div class="sub-item lang-item"><a class="subs-links" asp-controller="Language" asp-action="Change" asp-route-lang="az" asp-route-slugurl="@url">AZ</a></div>
+                                    <div class="sub-item lang-item"><a class="subs-links" asp-controller="Language" asp-action="Change" asp-route-lang="en" asp-route-slugurl="@url">EN</a></div>
+                                    <div class="sub-item lang-item"><a class="subs-links" asp-controller="Language" asp-action="Change" asp-route-lang="ru" asp-route-slugurl="@url">RU</a></div>
                                 </div>
                             </div>
                         </div>

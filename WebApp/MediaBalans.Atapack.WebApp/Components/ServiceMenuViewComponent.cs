@@ -15,7 +15,8 @@ namespace MediaBalans.Atapack.WebApp.Components
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
                 ViewBag.Lang = HttpContext.Session.GetString("lang");
-            ViewBag.Lang = "az";
+            else
+                ViewBag.Lang = "az";
             var services = await _servicesService.GetServicesAsync();
             return View(services.Data);
         }

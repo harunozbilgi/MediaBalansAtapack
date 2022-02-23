@@ -3,15 +3,16 @@
     ViewData["Title"] = "Index";
     string lang = ViewBag.Lang;
 }
+@section seo{
+ @await Component.InvokeAsync("Seo", new { Page = "News"  })
+}
 <section>
     <div class="xaberler-main">
         <div class="container">
             <div class="partner-heading">
-                <p class="page-heading">Xəbərlər</p>
+                <p class="page-heading">@configuration[$"News.Title:{lang}"]</p>
                 <p class="page-text">
-                    Mauris, nunc mauris semper lacus a feugiat nisl. Lobortis feugiat malesuada
-                    urna risus.
-                    Pellentesque id mattis morbi elementum.
+                   @configuration[$"News.Text:{lang}"]
                 </p>
             </div>
             <div class="xaberler-card-main">
@@ -27,14 +28,14 @@
                                     <p class="xaber-heading">@languageText.Title</p>
                                     <p class="xaber-text">@languageText.Description.Substring(0,100).ToString()</p>
                                     <span class="xaber-etraflı d-flex align-items-center justify-content-center">
-                                        Ətraflı
+                                        @configuration[$"Details:{lang}"]
                                     </span>
                                 </div>
                             </a>
                         </div>
                     }
                 </div>
-                @* <button class="btn btn-dahacox">Daha çox</button>*@
+                @* <button class="btn btn-dahacox">@configuration[$"More:{lang}"]</button>*@
             </div>
         </div>
     </div>
