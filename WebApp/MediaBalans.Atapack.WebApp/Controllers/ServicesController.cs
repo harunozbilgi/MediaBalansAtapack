@@ -10,7 +10,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
         private readonly IServicesService _servicesService;
         private readonly IServicePropertyService _servicePropertyService;
 
-        public ServicesController(IServicesService servicesService, 
+        public ServicesController(IServicesService servicesService,
             IServicePropertyService servicePropertyService)
         {
             _servicesService = servicesService;
@@ -18,7 +18,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
         }
 
         [Route("/{lang}/xidmetlerimiz/{slugUrl}")]
-        public async Task<IActionResult> Detail(string lang,string slugUrl)
+        public async Task<IActionResult> Detail(string lang, string slugUrl)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
                 lang = HttpContext.Session.GetString("lang");
@@ -32,7 +32,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
                 return View(new ServicesViewModel
                 {
                     Service = service.Data,
-                    ServiceProperties = serviceProperties.Data.ToList()
+                    ServiceProperties = serviceProperties.Data.Take(10).ToList()
                 });
             }
             return RedirectToAction(nameof(Index), "Home");
@@ -45,6 +45,16 @@ namespace MediaBalans.Atapack.WebApp.Controllers
             ViewBag.Lang = "az";
             var reponse = await _servicePropertyService.GetServiceByIdAsync(serviceId);
             return PartialView(reponse.Data);
+        }
+        [HttpPost]
+        public async Task<PartialViewResult> Filter(int pageIndex, int pageSize, string filterId)
+        {
+            string lang = "az";
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
+                lang = HttpContext.Session.GetString("lang");
+            ViewBag.Lang = lang;
+            var serviceProperties = await _servicePropertyService.GetServicePropertiesAsync(filterId);
+            return PartialView(serviceProperties.Data.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
     }
 }

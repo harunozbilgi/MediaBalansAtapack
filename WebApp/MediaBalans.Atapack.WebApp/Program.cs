@@ -73,7 +73,7 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    MediaBalans.Persistence.ServiceRegistration.Seed(app);
+    //MediaBalans.Persistence.ServiceRegistration.Seed(app);
 }
 
 app.UseHttpsRedirection();

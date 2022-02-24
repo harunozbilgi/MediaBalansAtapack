@@ -22,7 +22,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
             var portfolio = await _portfolioService.GetPortfoliosAsync();
             return View(new PortfoliosViewModel
             {
-                Portfolios = portfolio.Data.ToList()
+                Portfolios = portfolio.Data.Take(10).ToList()
             });
         }
 
@@ -36,6 +36,17 @@ namespace MediaBalans.Atapack.WebApp.Controllers
             {
                 Portfolio = reponse.Data
             });
+        }
+
+        [HttpPost]
+        public async Task<PartialViewResult> Filter(int pageIndex, int pageSize)
+        {
+            string lang = "az";
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
+                lang = HttpContext.Session.GetString("lang");
+            ViewBag.Lang = lang;
+            var portfolios = await _portfolioService.GetPortfoliosAsync();
+            return PartialView(portfolios.Data.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
     }
 }

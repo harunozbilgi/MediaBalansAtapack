@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Product>
+@{
+    string lang = ViewBag.Lang;
+}
+@foreach (var item in Model)
+{
+    var languageCategoryText = item.Category.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
+    var languageProdcutText = item.ProductLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+    <div class="col mahsul-item" data-groups='["@languageCategoryText"]'>
+        <a asp-controller="Products" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="mahsul-card">
+            <img class="mahsul-image"
+             src="@await Component.InvokeAsync("Image", new { FileCode = item.ProductFiles.FirstOrDefault().FileCode  })"
+             alt="@item.SlugUrl.ToLower()" />
+            <p class="mahsul-name">@languageProdcutText.Title</p>
+            <div class="line"></div>
+        </a>
+    </div>
+}

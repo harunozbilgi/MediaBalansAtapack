@@ -170,20 +170,22 @@ $(document).ready(function () {
         var pageIndex = 1;
         var controller = $(this).attr('data-controller');
         var action = $(this).attr('data-action');
+        var filterId = $(this).attr('data-filter-id');
         $(this).addClass('active');
         $.ajax({
             type: 'POST',
             url: `/${controller}/${action}`,
-            data: { "pageindex": pageIndex, "pagesize": pageSize },
+            data: { "pageIndex": pageIndex, "pageSize": pageSize, 'filterId': filterId },
             dataType: 'html',
             success: function (xhr) {
-                $('#appendFilter').last().append(xhr);
+                $('.appendFilter').last().append(xhr);
                 setTimeout(() => {
-                    $(this).removeClass('active')
+                    $('.btn-more').removeClass('active')
                 }, 3000);
             },
             error: function () {
                 alert("Error while retrieving data!");
+                $('.btn-more').removeClass('active')
             }
         });
     });

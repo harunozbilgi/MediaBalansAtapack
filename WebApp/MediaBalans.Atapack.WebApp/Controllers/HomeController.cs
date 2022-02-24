@@ -58,8 +58,19 @@ namespace MediaBalans.Atapack.WebApp.Controllers
                 lang = HttpContext.Session.GetString("lang");
             ViewBag.Lang = lang;
             var galleries = await _galleryService.GetGalleriesAsync();
-            return View(galleries.Data);
+            return View(galleries.Data.Take(10).ToList());
 
+        }
+
+        [HttpPost]
+        public async Task<PartialViewResult> Filter(int pageIndex, int pageSize)
+        {
+            string lang = "az";
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
+                lang = HttpContext.Session.GetString("lang");
+            ViewBag.Lang = lang;
+            var galleries = await _galleryService.GetGalleriesAsync();
+            return PartialView(galleries.Data.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
 
 

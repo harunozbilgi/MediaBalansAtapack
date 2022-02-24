@@ -51,6 +51,7 @@ tfoot,
 thead,
 tr { margin: 0; padding: 0; border: 0; outline: 0; }
 
+
 html,
 body {  overflow-x: hidden !important; }
 
@@ -62,7 +63,8 @@ ul { list-style: none; }
 
 table { border-collapse: collapse; border-spacing: 0; }
 
-body { font-size: 17px; font-family: "Averta-regular", sans-serif; box-sizing: border-box; color: #000; position: relative; overflow-x: hidden !important; height: 100%; }
+body { font-size: 17px; font-family: "Averta-regular", sans-serif; box-sizing: border-box; color: #000; position: relative;
+   overflow-x: hidden !important; height: 100%; }
 
 div,
 span,
@@ -109,6 +111,17 @@ html.sr .widget {
   visibility: hidden;
 }
 
+.colored-toast.swal2-icon-success {
+  background-color: #2d7503 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #e74040 !important;
+}
+
+.colored-toast .swal2-title {
+  color: white;
+}
 
 .overflow { overflow: hidden; }
 

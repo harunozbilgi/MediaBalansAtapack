@@ -3,9 +3,10 @@
     ViewData["Title"] = "Detail";
     string lang = ViewBag.Lang;
     var languageText = Model.Service.ServiceLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+    var fileCode = Model.ServiceProperties.Count() > 0 ? Model.ServiceProperties.FirstOrDefault().ServiceFiles.FirstOrDefault().FileCode : Model.Service.Image_Url;
 }
 @section seo{
- @await Component.InvokeAsync("Seo", new { Page = Model.Service.AppSeoCode, filecode=Model.ServiceProperties.FirstOrDefault().ServiceFiles.FirstOrDefault().FileCode  })
+ @await Component.InvokeAsync("Seo", new { Page = Model.Service.AppSeoCode, filecode=fileCode  })
 }
 @section Styles{
 <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
@@ -23,14 +24,14 @@
                     </p>
                 </div>
                 <div class="dizayn-card-main">
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
+                    <div class="appendFilter row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
                         @foreach (var item in Model.ServiceProperties)
                         {
                             var languageServiceText = item.ServicePropertyLanguages.FirstOrDefault(x => x.Lang_Code == lang);
                             <div class="col widget">
                                 <div class="partner-image-card dizayn-card" data-toggle="modal" data-url="@Url.Action($"PropertyDetail?serviceId={item.ServiceId}")">
                                     <img src="@await Component.InvokeAsync("Image", new { FileCode = item.ServiceFiles.FirstOrDefault().FileCode  })"
-                                 alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title.ToLower())" />
+                                 alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title)" />
                                     <div class="partner-body">
                                         <p class="heading">@languageServiceText.Title</p>
                                         <p class="text">
@@ -42,14 +43,17 @@
                             </div>
                         }
                     </div>
-                    @*                    <button class="btn btn-dahacox btn-more">
-                        <span>@configuration[$"More:{lang}"]</span>
-                        <div class="write-circle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        </div>
-                        </button>*@
+                    @if (Model.ServiceProperties.Count() >= 9)
+                    {
+                        <button class="btn btn-dahacox btn-more" data-controller="Services" data-action="Filter" data-filter-id="@Model.Service.Id">
+                            <span>@configuration[$"More:{lang}"]</span>
+                            <div class="write-circle">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </button>
+                    }
                 </div>
             </div>
         </div>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Portfolio>
+@{
+    string lang = ViewBag.Lang;
+}
+@foreach (var item in Model)
+{
+    var languageServiceText = item.PortfolioLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+    <div class="col widget">
+        <div class="partner-image-card portfolio-card" data-toggle="modal" data-url="@Url.Action($"PortfolioDetail?id={item.Id}")">
+            <img src="@await Component.InvokeAsync("Image", new { FileCode = item.PortfolioFiles.FirstOrDefault().FileCode  })"
+             alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title)" />
+            <div class="partner-body">
+                <p class="heading">@languageServiceText.Title</p>
+                <p class="text">
+                    @languageServiceText.Description
+                </p>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+}

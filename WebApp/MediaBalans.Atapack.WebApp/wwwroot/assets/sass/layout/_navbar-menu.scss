@@ -3,6 +3,9 @@
     .navbar-main { height: 100px; @include mobile-display { height: 80px; }
 
         .navbar-brand { width: 65px; @include mobile-l { width: 60px; }
+
+            
+            .svg,
             img { @extend %img-size; }
         }
 

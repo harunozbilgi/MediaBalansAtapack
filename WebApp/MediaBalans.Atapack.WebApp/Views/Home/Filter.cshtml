@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Gallery>
+@{
+    int count = 1;
+}
+@foreach (var item in Model)
+{
+    <div class="col">
+        <a href="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })" class="image-cards" data-lightbox="image-@count">
+            <img class="galeria-card-img"
+             src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
+             alt="@UrlSeoHelper.UrlSeo(item.Name.ToLower())">
+            <i class="bi bi-zoom-in position-absolute top-50 start-50 translate-middle"></i>
+        </a>
+    </div>
+    count++;
+}

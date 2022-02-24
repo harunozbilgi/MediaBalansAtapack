@@ -22,7 +22,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
             var news = await _newsService.GetNewsAsync();
             return View(new NewViewModel
             {
-                NewsList = news.Data.ToList()
+                NewsList = news.Data.Take(10).ToList()
             });
         }
 
@@ -45,6 +45,16 @@ namespace MediaBalans.Atapack.WebApp.Controllers
                 });
             }
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public async Task<PartialViewResult> Filter(int pageIndex, int pageSize)
+        {
+            string lang = "az";
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
+                lang = HttpContext.Session.GetString("lang");
+            ViewBag.Lang = lang;
+            var news = await _newsService.GetNewsAsync();
+            return PartialView(news.Data.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
     }
 }

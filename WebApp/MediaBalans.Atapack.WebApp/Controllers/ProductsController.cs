@@ -29,7 +29,7 @@ namespace MediaBalans.Atapack.WebApp.Controllers
 
             return View(new ProductsViewModel
             {
-                Products = product.Data.ToList(),
+                Products = product.Data.Take(10).ToList(),
                 Categories = categories.Data.ToList()
             });
         }
@@ -52,6 +52,17 @@ namespace MediaBalans.Atapack.WebApp.Controllers
                 });
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<PartialViewResult> Filter(int pageIndex, int pageSize)
+        {
+            string lang = "az";
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
+                lang = HttpContext.Session.GetString("lang");
+            ViewBag.Lang = lang;
+            var prodcuts = await _productService.GetProductsAsync();
+            return PartialView(prodcuts.Data.Skip(pageIndex * pageSize).Take(pageSize).ToList());
         }
     }
 }

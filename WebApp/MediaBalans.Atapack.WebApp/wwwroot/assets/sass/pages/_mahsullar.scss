@@ -10,7 +10,7 @@
         }
     }
 
-    .mahsul-card-main { min-height: 410px; }
+    .mahsul-card-main { min-height: 410px; @include margin-bottom(60px); }
 
     .my-sizer-element { position: absolute; opacity: 0; visibility: hidden; }
 }
@@ -65,4 +65,9 @@
 
         .mahsul-detay-card-main { @include padding(30px 0 100px); }
     }
+}
+
+
+.portfolio-card-main{
+    @include margin-bottom(80px);
 }

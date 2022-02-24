@@ -30,7 +30,7 @@
             </div>
             <div class="mahsullar-card-content">
                 <div class="mahsul-card-main">
-                    <div id="mahsul-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
+                    <div id="mahsul-grid" class="appendFilter row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-3 g-lg-3 g-xl-5">
                         @foreach (var item in Model.Products)
                         {
                             var languageCategoryText = item.Category.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
@@ -47,7 +47,17 @@
                         }
                     </div>
                 </div>
-                @* <button class="btn btn-dahacox">@configuration[$"More:{lang}"]</button>*@
+                @if (Model.Products.Count() >= 9)
+                {
+                    <button class="btn btn-dahacox btn-more" data-controller="Products" data-action="Filter">
+                        <span>@configuration[$"More:{lang}"]</span>
+                        <div class="write-circle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                }
             </div>
         </div>
     </div>

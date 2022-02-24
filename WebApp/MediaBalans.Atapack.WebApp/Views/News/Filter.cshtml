@@ -1,0 +1,21 @@
+﻿@model IEnumerable<News>
+@{
+    string lang = ViewBag.Lang;
+}
+@foreach (var item in Model)
+{
+    var languageText = item.NewsLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+    <div class="col">
+        <a asp-controller="News" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="xaber-card">
+            <img src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
+             alt="@item.SlugUrl.ToLower()">
+            <div class="xaber-card-body">
+                <p class="xaber-heading">@languageText.Title</p>
+                <p class="xaber-text">@languageText.Description.Substring(0,100).ToString()</p>
+                <span class="xaber-etraflı d-flex align-items-center justify-content-center">
+                    @configuration[$"Details:{lang}"]
+                </span>
+            </div>
+        </a>
+    </div>
+}

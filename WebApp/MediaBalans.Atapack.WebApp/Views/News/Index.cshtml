@@ -16,7 +16,7 @@
                 </p>
             </div>
             <div class="xaberler-card-main">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-5">
+                <div class="appendFilter row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-5">
                     @foreach (var item in Model.NewsList)
                     {
                         var languageText = item.NewsLanguages.FirstOrDefault(x => x.Lang_Code == lang);
@@ -35,7 +35,17 @@
                         </div>
                     }
                 </div>
-                @* <button class="btn btn-dahacox">@configuration[$"More:{lang}"]</button>*@
+                @if (Model.NewsList.Count() >= 9)
+                {
+                    <button class="btn btn-dahacox btn-more" data-controller="News" data-action="Filter">
+                        <span>@configuration[$"More:{lang}"]</span>
+                        <div class="write-circle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                }
             </div>
         </div>
     </div>

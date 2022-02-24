@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div class="galeria-card-main mb-5">
-                <div id="appendFilter" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start g-5">
+                <div class="appendFilter row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start g-5">
                     @{
                         int count = 1;
                     }
@@ -37,14 +37,17 @@
                     }
 
                 </div>
-                <button class="btn btn-dahacox btn-more" data-controller="Home" data-action="Filter">
-                    <span>@configuration[$"More:{lang}"]</span>
-                    <div class="write-circle">
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                     </div>
-                </button>
+                @if (Model.Count() >= 9)
+                {
+                    <button class="btn btn-dahacox btn-more" data-controller="Home" data-action="Filter">
+                        <span>@configuration[$"More:{lang}"]</span>
+                        <div class="write-circle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                }
             </div>
         </div>
     </div>

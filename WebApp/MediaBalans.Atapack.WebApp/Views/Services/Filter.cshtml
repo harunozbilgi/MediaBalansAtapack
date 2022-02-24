@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ServiceProperty>
+@{
+    string lang = ViewBag.Lang;
+}
+@foreach (var item in Model)
+{
+    var languageServiceText = item.ServicePropertyLanguages.FirstOrDefault(x => x.Lang_Code == lang);
+    <div class="col widget">
+        <div class="partner-image-card dizayn-card" data-toggle="modal" data-url="@Url.Action($"PropertyDetail?serviceId={item.ServiceId}")">
+            <img src="@await Component.InvokeAsync("Image", new { FileCode = item.ServiceFiles.FirstOrDefault().FileCode  })"
+             alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title.ToLower())" />
+            <div class="partner-body">
+                <p class="heading">@languageServiceText.Title</p>
+                <p class="text">
+                    @languageServiceText.Description
+                </p>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+}

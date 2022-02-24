@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div class="portfolio-card-main">
-                <div class="row row-cols-1 row-cols-lg-2 g-5 g-lg-3 g-xl-5">
+                <div class="appendFilter row row-cols-1 row-cols-lg-2 g-5 g-lg-3 g-xl-5">
                     @foreach (var item in Model.Portfolios)
                     {
                         var languageServiceText = item.PortfolioLanguages.FirstOrDefault(x => x.Lang_Code == lang);
@@ -38,7 +38,17 @@
                         </div>
                     }
                 </div>
-                @* <button class="btn btn-dahacox">@configuration[$"More:{lang}"]</button>*@
+                 @if (Model.Portfolios.Count() >= 9)
+                {
+                    <button class="btn btn-dahacox btn-more" data-controller="Portfolios" data-action="Filter">
+                        <span>@configuration[$"More:{lang}"]</span>
+                        <div class="write-circle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                }
             </div>
         </div>
     </div>
