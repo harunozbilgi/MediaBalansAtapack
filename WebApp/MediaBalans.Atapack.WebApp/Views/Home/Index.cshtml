@@ -51,9 +51,9 @@
         <div class="home-mahsul-heading d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div class="partner-heading ">
                 <p class="page-heading">@configuration[$"Product.Title:{lang}"]</p>
-                <p class="page-text">
+@*                <p class="page-text">
                    @configuration[$"Product.Text:{lang}"]
-                </p>
+                </p>*@
             </div>
             <a asp-controller="Products" asp-action="Index" asp-route-lang="@lang" class="btn btn-dahacox d-flex align-items-center justify-content-center">
                 @configuration[$"More:{lang}"]
@@ -95,9 +95,7 @@
         }
         <div class="partner-heading">
             <p class="page-heading">@languagePageText.Title</p>
-            <p class="page-text">
-                @languagePageText.Description
-            </p>
+            @Html.Raw(languagePageText.Description)
         </div>
         <div class="home-haqqımızda-image">
             <img src="@await Component.InvokeAsync("Image", new { FileCode = Model.Page.FileCode  })" alt="@Model.Page.SlugUrl.ToLower()" />

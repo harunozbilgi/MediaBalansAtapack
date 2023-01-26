@@ -32,7 +32,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="modal-image-text">
+               @* <div class="modal-image-text">
                     @{
                         var languageText = Model.Portfolio.PortfolioLanguages.FirstOrDefault(x => x.Lang_Code == lang);
                     }
@@ -40,7 +40,7 @@
                     <p class="text">
                         @languageText.Description
                     </p>
-                </div>
+                </div>*@
             </div>
             <button class="btn btn-modal-closed" data-bs-dismiss="modal" aria-label="Close">
                 <i class="bi bi-x"></i>

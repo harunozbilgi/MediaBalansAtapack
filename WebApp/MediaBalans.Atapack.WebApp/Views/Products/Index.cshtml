@@ -4,28 +4,43 @@
     string lang = ViewBag.Lang;
 }
 @section seo{
- @await Component.InvokeAsync("Seo", new { Page = "Product"  })
+    @await Component.InvokeAsync("Seo", new { Page = "Product"  })
 }
 <section>
     <div class="mahsullar-general-main">
         <div class="container">
             <div class="partner-heading">
                 <p class="page-heading">@configuration[$"Product.Title:{lang}"]</p>
-                <p class="page-text">
-                   @configuration[$"Product.Text:{lang}"]
-                </p>
+               @* <p class="page-text">
+                    @configuration[$"Product.Text:{lang}"]
+                </p>*@
             </div>
             <div class="filter-options mb-5">
                 @if (string.IsNullOrEmpty(ViewBag.url))
                 {
-                    <button class="btn me-3 active" data-group="all">@configuration[$"Product.Category.Text:{lang}"]</button>
-                }else{
-                    <button class="btn me-3" data-group="all">@configuration[$"Product.Category.Text:{lang}"]</button>
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-lang="@lang"
+                       asp-route-slugUrl="all" class="btn me-3 active">@configuration[$"Product.Category.Text:{lang}"]</a>
+                }
+                else
+                {
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-lang="@lang"
+                       asp-route-slugUrl="all" 
+                        class="btn me-3">@configuration[$"Product.Category.Text:{lang}"]</a>
                 }
                 @foreach (var item in Model.Categories)
                 {
                     var languageText = item.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
-                    <button class="btn me-3 @(ViewBag.url == item.SlugUrl.ToLower() ? "active" : "")" data-group="@languageText">@languageText</button>
+                    <a  asp-controller="Products" 
+                        asp-action="Index" 
+                        asp-route-lang="@lang"
+                        asp-route-slugUrl="@item.SlugUrl.ToLower()"
+                            class="btn me-3 @(ViewBag.url == item.SlugUrl.ToLower() ? "active" : "")">
+                        @languageText
+                    </a>
                 }
             </div>
             <div class="mahsullar-card-content">
@@ -35,8 +50,11 @@
                         {
                             var languageCategoryText = item.Category.CategoryLanguages.FirstOrDefault(x => x.Lang_Code == lang).Title;
                             var languageProdcutText = item.ProductLanguages.FirstOrDefault(x => x.Lang_Code == lang);
-                            <div class="col mahsul-item" data-groups='["@languageCategoryText"]'>
-                                <a asp-controller="Products" asp-action="Detail" asp-route-lang="@lang" asp-route-slugUrl="@item.SlugUrl" class="mahsul-card">
+                            <div class="col mahsul-item">
+                                <a asp-controller="Products"
+                               asp-action="Detail"
+                               asp-route-lang="@lang"
+                               asp-route-slugUrl="@item.SlugUrl" class="mahsul-card">
                                     <img class="mahsul-image"
                                      src="@await Component.InvokeAsync("Image", new { FileCode = item.ProductFiles.FirstOrDefault().FileCode  })"
                                      alt="@item.SlugUrl.ToLower()" />
@@ -49,7 +67,10 @@
                 </div>
                 @if (Model.Products.Count() >= 9)
                 {
-                    <button class="btn btn-dahacox btn-more" data-controller="Products" data-action="Filter">
+                    <button class="btn btn-dahacox btn-more"
+                        data-controller="Products"
+                        data-action="Filter"
+                        data-filter-id="@ViewBag.url">
                         <span>@configuration[$"More:{lang}"]</span>
                         <div class="write-circle">
                             <span></span>
@@ -62,7 +83,3 @@
         </div>
     </div>
 </section>
-@section Plugins{
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/5.4.1/shuffle.min.js"></script>
-<script src="~/assets/js/suflee.js"></script>
-}

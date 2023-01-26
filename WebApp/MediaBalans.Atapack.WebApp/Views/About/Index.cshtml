@@ -5,11 +5,11 @@
     var languageText = Model.Page.PageLanguages.FirstOrDefault(x => x.Lang_Code == lang);
 }
 @section seo{
- @await Component.InvokeAsync("Seo", new { Page = Model.Page.AppSeoCode, filecode=Model.Page.FileCode  })
+    @await Component.InvokeAsync("Seo", new { Page = Model.Page.AppSeoCode, filecode=Model.Page.FileCode  })
 }
 @section Styles{
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 }
 @if (Model.Page.ShowView == 1)
 {
@@ -21,9 +21,7 @@
                      data-aos-offset="200"
                      data-aos-easing="ease-in-sine">
                         <p class="heading">@languageText.Title</p>
-                        <p class="heading-text">
-                            @languageText.Description
-                        </p>
+                        @Html.Raw(languageText.Description)
                     </div>
                     <img data-aos="fade-left"
                      data-aos-offset="200"
@@ -49,26 +47,9 @@
                             <div class="col-12 col-lg-6 col-xl-7 pe-0 pe-lg-5" data-aos="fade-left"
                              data-aos-offset="200" data-aos-easing="ease-in-sine">
                                 <h3>@languageText.Title</h3>
-                                <p>@languageText.Description</p>
+                                @Html.Raw(languageText.Description)
                             </div>
                         </div>
-                    </div>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start gx-5 gy-5 gy-lg-0">
-                        @{
-                            int count = 1;
-                        }
-                        @foreach (var item in Model.PageProperties)
-                        {
-                            <div class="col">
-                                <a href="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })" class="image-cards" data-lightbox="image-@count">
-                                    <img class="galeria-card-img"
-                                 src="@await Component.InvokeAsync("Image", new { FileCode = item.FileCode  })"
-                                 alt="@UrlSeoHelper.UrlSeo(item.Name.ToLower())">
-                                    <i class="bi bi-zoom-in position-absolute top-50 start-50 translate-middle"></i>
-                                </a>
-                            </div>
-                            count++;
-                        }
                     </div>
                 </div>
             </div>
@@ -82,15 +63,13 @@
             <div class="container">
                 <div class="partner-heading">
                     <p class="page-heading">@languageText.Title</p>
-                    <p class="page-text">
+@*                    <p class="page-text">
                         @configuration[$"About.Quality.Text:{lang}"]
-                    </p>
+                    </p>*@
                 </div>
                 <div class="keyfiyat-main">
                     <img src="@await Component.InvokeAsync("Image", new { FileCode = Model.Page.FileCode })" alt="@Model.Page.SlugUrl.ToLower()">
-                    <p class="keyfiyat-text">
-                        @languageText.Description
-                    </p>
+                    @Html.Raw(languageText.Description)
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 misyamız-alt justify-content-center justify-content-lg-start gx-5 gy-5 gy-lg-0">
                         @{
                             int count = 1;
@@ -114,14 +93,14 @@
     </section>
 }
 @section Plugins{
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 }
 @section Scripts{
-<script>
-    AOS.init({
-        once: 'true'
-    });
-</script>
+    <script>
+        AOS.init({
+            once: 'true'
+        });
+    </script>
 }
 

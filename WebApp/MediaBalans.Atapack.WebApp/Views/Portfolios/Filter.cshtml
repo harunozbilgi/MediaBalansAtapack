@@ -10,10 +10,10 @@
             <img src="@await Component.InvokeAsync("Image", new { FileCode = item.PortfolioFiles.FirstOrDefault().FileCode  })"
              alt="@UrlSeoHelper.UrlSeo(languageServiceText.Title)" />
             <div class="partner-body">
-                <p class="heading">@languageServiceText.Title</p>
+                @*<p class="heading">@languageServiceText.Title</p>
                 <p class="text">
                     @languageServiceText.Description
-                </p>
+                </p>*@
                 <i class="bi bi-chevron-right"></i>
             </div>
         </div>

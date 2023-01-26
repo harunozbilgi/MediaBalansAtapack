@@ -159,24 +159,33 @@
 
 @section Validation{
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-}
-@section Scripts{
-<script>
-    $(document).on("submit", "#fromloading", function () {
-        $(this).find('button[type="submit"]')
-        $(this).find('button[type="submit"]').attr("disabled", "true");
-        $(this).find('button[type="submit"]').html('');
-        $(this).find('button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Kaydet...')
-        setTimeout(() => {
-            $(this).find('.spinner-border').remove();
-            $(this).find('button[type="submit"]').append('Kaydet');
-            $(this).find('button[type="submit"]').attr("disabled", "false");
-        }, 2000);
-    });
-</script>
-
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+    @section Scripts{
+    <script>
+        $(document).on("submit", "#fromloading", function () {
+            $(this).find('button[type="submit"]')
+            $(this).find('button[type="submit"]').attr("disabled", "true");
+            $(this).find('button[type="submit"]').html('');
+            $(this).find('button[type="submit"]').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Kaydet...')
+            setTimeout(() => {
+                $(this).find('.spinner-border').remove();
+                $(this).find('button[type="submit"]').append('Kaydet');
+                $(this).find('button[type="submit"]').attr("disabled", "false");
+            }, 2000);
+        });
+    </script>
+    <script>
+        var allEditors = document.querySelectorAll('.editor');
+        for (var i = 0; i < allEditors.length; ++i) {
+            ClassicEditor
+                .create(allEditors[i])
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
 }
 
 
