@@ -7,9 +7,14 @@ namespace MediaBalans.Atapack.WebApp.Controllers
         [Route("/{lang}/elaqe")]
         public IActionResult Index(string lang)
         {
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("lang")))
-                lang = HttpContext.Session.GetString("lang");
-            ViewBag.Lang = lang;
+            ViewBag.Lang = HttpContext.Session.GetString("lang") ?? lang;
+            return View();
+        }
+
+        [Route("/{lang}/karyera")]
+        public IActionResult Career(string lang)
+        {
+            ViewBag.Lang = HttpContext.Session.GetString("lang")?? lang;
             return View();
         }
     }

@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var config = (await configService.GetByAppConfigAsync()).Data;
+    string lang = ViewBag.Lang;
+}
+@section seo {
+    @await Component.InvokeAsync("Seo", new { Page = "Career" })
+}
+<section>
+    <div class="alaqa-main">
+        <div class="container">
+            <div class="partner-heading">
+                <p class="page-heading">@configuration[$"Career.Title:{lang}"]</p>
+                <p class="page-text">
+                    @configuration[$"Career.Text:{lang}"]
+                </p>
+            </div>
+            <div class="alaqa-info-main mb-5">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="info-box">
+                            <p class="info-heading mb-3 mb-lg-5">@configuration[$"Contact.Address:{lang}"]</p>
+                            <p class="text-unvan">@config.Address</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4 mt-4 mt-md-0">
+                        <div class="info-box">
+                            <p class="info-heading mb-3 mb-lg-5">@configuration[$"Contact.Title:{lang}"]</p>
+                            <ul class="info-list d-flex flex-column">
+                                <li class="info-item mb-4">
+                                    <a href="tel:@config.PhoneNumber" class="d-flex align-items-center">
+                                        <i class="bi bi-telephone-fill me-2"></i>
+                                        @config.PhoneNumber
+                                    </a>
+                                </li>
+                                <li class="info-item mb-4">
+                                    <a href="tel:@config.PhoneNumberOne" class="d-flex align-items-center">
+                                        <i class="bi bi-telephone-fill me-2"></i>
+                                        @config.PhoneNumberOne
+                                    </a>
+                                </li>
+                                <li class="info-item">
+                                    <a href="mailto:@config.Email" class="d-flex align-items-center">
+                                        <i class="bi bi-envelope-fill me-2"></i>
+                                        @config.Email
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4 mt-5 mt-xl-0">
+                        <form class="alaqa-form" enctype="multipart/form-data" autocomplete="off">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="@configuration[$"Form.Name:{lang}"]">
+                                <label for="floatingInput">@configuration[$"Form.Name:{lang}"]</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="@configuration[$"Form.Email:{lang}"]">
+                                <label for="floatingInput">@configuration[$"Form.Email:{lang}"]</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control" id="floatingInput" placeholder="@configuration[$"Form.Phone:{lang}"]">
+                                <label for="floatingInput">@configuration[$"Form.Phone:{lang}"]</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <textarea type="text" class="form-control area" id="floatingInput"
+                                          placeholder="@configuration[$"Form.Messages:{lang}"]"></textarea>
+                                <label for="floatingInput">@configuration[$"Form.Messages:{lang}"]</label>
+                            </div>
+                            <div class="upload-box">
+                                <div class="upload-1">
+                                    <label for="Reference" class="custom-file-upload d-flex align-items-center">
+                                        <i class="bi bi-file-arrow-up me-2"></i>
+                                        @configuration[$"Form.File.text:{lang}"]
+                                    </label>
+                                    <input type="file" class="form-control photo-file-upload" id="Reference" />
+                                </div>
+                                <div class="file-uploading">
+                                    <div class="write-circle">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    <span class="uploading-text">
+                                        @configuration[$"Form.File.Uploading:{lang}"]...
+                                    </span>
+                                </div>
+                                <div class="file-main-general">
+                                    <div class="file-main file-reference-main row row-cols-1">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-send d-block my-3">
+                                <span>
+                                    @configuration[$"Form.Send:{lang}"]
+                                </span>
+                                <div class="write-circle">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

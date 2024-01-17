@@ -59,9 +59,15 @@
                         </div>
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="About" asp-action="Index" asp-route-lang="@lang" asp-route-slugUrl="Ustunluklerimiz">
-                                Üstünlüklərimiz
+                                @configuration[$"Our:{lang}"]
                             </a>
                         </div>
+                        <div class="nav-item">
+                            <a class="nav-link d-flex align-items-center" asp-controller="Contact" asp-action="Career" asp-route-lang="@lang">
+                                @configuration[$"Career:{lang}"]
+                            </a>
+                        </div>
+
                         <div class="nav-item">
                             <a class="nav-link d-flex align-items-center" asp-controller="Contact" asp-action="Index" asp-route-lang="@lang">
                                 @configuration[$"Contact:{lang}"]
